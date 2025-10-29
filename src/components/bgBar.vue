@@ -3,26 +3,36 @@
     <div class="attr-item-box">
       <!-- <h3>{{ $t('bgSeting.color') }}</h3> -->
       <Divider plain orientation="left">
-        <h4>{{ $t('bgSeting.color') }}</h4>
+        <h4>背景颜色</h4>
       </Divider>
       <Form :label-width="0">
         <FormItem prop="name">
-          <ColorPicker v-model="color" @on-change="setThisColor" alpha />
+          <a-color-picker
+            defaultValue="#FFF"
+            hide-trigger
+            showPreset
+            v-model="color"
+            @change="setThisColor"
+            style="width: 100%"
+          />
+          <!--          <a-button size="mini" long style="margin-top: 12px" @click="setBgColorTransparent">-->
+          <!--            设置画布为透明背景-->
+          <!--          </a-button>-->
         </FormItem>
       </Form>
       <!-- <Divider plain></Divider> -->
     </div>
-    <div class="attr-item-box">
-      <!-- <h3>{{ $t('bgSeting.colorMacthing') }}</h3> -->
-      <Divider plain orientation="left">
-        <h4>{{ $t('bgSeting.colorMacthing') }}</h4>
-      </Divider>
-      <div class="color-list">
-        <template v-for="(item, i) in colorList" :key="item + i">
-          <span :style="`background:${item}`" @click="setColor(item)"></span>
-        </template>
-      </div>
-    </div>
+    <!--    <div class="attr-item-box">-->
+    <!--      &lt;!&ndash; <h3>{{ $t('bgSeting.colorMacthing') }}</h3> &ndash;&gt;-->
+    <!--      <Divider plain orientation="left">-->
+    <!--        <h4>{{ $t('bgSeting.colorMacthing') }}</h4>-->
+    <!--      </Divider>-->
+    <!--      <div class="color-list">-->
+    <!--        <template v-for="(item, i) in colorList" :key="item + i">-->
+    <!--          <span :style="`background:${item}`" @click="setColor(item)"></span>-->
+    <!--        </template>-->
+    <!--      </div>-->
+    <!--    </div>-->
 
     <!-- <div>
       <Divider plain orientation="left">
@@ -68,6 +78,14 @@ const colorList = ref([
 ]);
 
 const color = ref('rgba(255, 255, 255, 1)');
+
+/**
+ * 设置背景为透明色
+ */
+function setBgColorTransparent() {
+  setColor('rgba(0, 0, 0, 0)');
+}
+
 // 背景颜色设置
 const setThisColor = () => {
   setColor(color.value);
@@ -76,6 +94,7 @@ const setThisColor = () => {
 function setColor(c) {
   const workspace = canvasEditor.canvas.getObjects().find((item) => item.id === 'workspace');
   workspace.set('fill', c);
+  canvasEditor.canvas.setBackgroundColor(c);
   canvasEditor.canvas.renderAll();
   color.value = c;
 }
@@ -113,5 +132,10 @@ onUnmounted(() => {
     vertical-align: middle;
     cursor: pointer;
   }
+}
+
+.arco-color-picker-panel {
+  -webkit-box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0);
+  box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0);
 }
 </style>
