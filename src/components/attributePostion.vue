@@ -46,7 +46,7 @@
 
     <div v-if="isCanSetSizeTypeMatchType && baseAttr.id !== 'workspace'">
       <!-- <h3>位置信息</h3> -->
-      <Divider plain orientation="left"><h4>宽高</h4></Divider>
+      <Divider plain orientation="left"><h4>尺寸信息</h4></Divider>
       <!-- 通用属性 -->
       <div v-show="isMatchType">
         <Row :gutter="10">

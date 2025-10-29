@@ -10,20 +10,27 @@
   <div v-if="!isSelect" class="attr-item-box">
     <!-- <h3>{{ $t('bgSeting.size') }}</h3> -->
     <Divider plain orientation="left">
-      <h4>{{ $t('bgSeting.size') }}</h4>
+      <h4>画布尺寸</h4>
     </Divider>
     <a-row style="width: 100%" :gutter="12">
       <a-col :span="12">
-        <a-input readonly v-model="width">
-          <template #prefix>宽度</template>
-          <template #suffix>px</template>
-        </a-input>
+        <InputNumber
+          style="width: 100%"
+          readonly
+          :precision="0"
+          v-model="width"
+          :append="'宽度'"
+        ></InputNumber>
       </a-col>
       <a-col :span="12">
-        <a-input readonly v-model="height">
-          <template #prefix>高度</template>
-          <template #suffix>px</template>
-        </a-input>
+        <InputNumber
+          readonly
+          style="width: 100%"
+          :editable="false"
+          :precision="0"
+          v-model="height"
+          :append="'高度'"
+        ></InputNumber>
       </a-col>
     </a-row>
     <!--    <Form :label-width="40" inline class="form-wrap">-->
@@ -93,5 +100,9 @@ const handleConfirm = (w, h) => {
 }
 .form-wrap {
   display: flex;
+}
+
+:deep(.ivu-input-number-handler-wrap) {
+  display: none;
 }
 </style>
