@@ -86,6 +86,68 @@ const state = reactive({
   ruler: true,
 });
 
+import { v4 as uuid } from 'uuid';
+import { Message } from '@arco-design/web-vue';
+
+/**
+ * 接收消息
+ * @param e
+ */
+function receiveMessage(e: MessageEvent) {
+  if (e && e.data) {
+    if (e.data.type === 'getData') {
+      //获取模板数据（整个画布）
+      (async () => {
+        const dataUrl = await canvasEditor.preview();
+        const json = canvasEditor.getJson();
+        window.parent.postMessage(
+          { event: 'saveData', data: { json: json, dataUrl: dataUrl } },
+          '*'
+        );
+      })();
+    }
+    if (e.data.type === 'getTextData') {
+      //获取文字数据
+      (async () => {
+        const data = await canvasEditor.getFontData();
+        if (data) {
+          //需判断json类型是textbox或者group，否则保存后打开有异常
+          if (data.json.type !== 'textbox' && data.json.type !== 'group') {
+            Message.warning('只允许选中文本元素或组合，如有多个元素需要保存请将其组合');
+            return;
+          }
+          window.parent.postMessage({ event: 'saveTextData', data: data }, '*');
+        }
+      })();
+    } else if (e.data.type === 'setTextJson') {
+      (async () => {
+        const jsonStr = e.data.data.json;
+        if (jsonStr) {
+          await canvasEditor.downFontByJSON(jsonStr);
+          const el = JSON.parse(jsonStr);
+          el.id = uuid();
+          const elType = capitalizeFirstLetter(el.type);
+          new fabric[elType].fromObject(el, (fabricEl) => {
+            canvasEditor.addBaseType(fabricEl);
+            window.parent.postMessage({ event: 'setJsonComplete' }, '*');
+          });
+        }
+      })();
+    } else if (e.data.type === 'setJson') {
+      const json = e.data.data.json;
+      if (json) {
+        canvasEditor.loadJSON(JSON.stringify(JSON.parse(json)), () => {
+          window.parent.postMessage({ event: 'setJsonComplete' }, '*');
+        });
+      }
+    }
+  }
+}
+
+function capitalizeFirstLetter(string: string) {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
 onMounted(() => {
   // 初始化fabric
   const canvas = new fabric.Canvas('canvas', {
@@ -142,9 +204,17 @@ onMounted(() => {
   if (state.ruler) {
     canvasEditor.rulerEnable();
   }
+
+  //添加监听
+  window.addEventListener('message', receiveMessage, false);
+  window.parent.postMessage({ event: 'onLoadingComplete' }, '*');
 });
 
-onUnmounted(() => canvasEditor.destory());
+onUnmounted(() => {
+  canvasEditor.destory();
+  //移除监听
+  window.removeEventListener('message', receiveMessage);
+});
 const rulerSwitch = (val) => {
   if (val) {
     canvasEditor.rulerEnable();
