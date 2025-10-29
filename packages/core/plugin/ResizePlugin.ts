@@ -72,14 +72,14 @@ class ResizePlugin implements IPluginTempl {
     const wsTop = workspace.top * scaleY;
     const { bWidth, bHeight, bPadding } = this.barOpts;
     if (!viewportTransform) return;
-    // 左控制条
-    const leftBar = this._getBarFromType('left');
-    leftBar.style.left = `${offsetX + wsLeft - bHeight - bPadding}px`;
-    leftBar.style.top = `${offsetY + wsTop + wsHeight / 2 - bWidth / 2}px`;
-    // 右控制条
-    const rightBar = this._getBarFromType('right');
-    rightBar.style.left = `${offsetX + wsLeft + wsWidth + bPadding}px`;
-    rightBar.style.top = `${offsetY + wsTop + wsHeight / 2 - bWidth / 2}px`;
+    // // 左控制条
+    // const leftBar = this._getBarFromType('left');
+    // leftBar.style.left = `${offsetX + wsLeft - bHeight - bPadding}px`;
+    // leftBar.style.top = `${offsetY + wsTop + wsHeight / 2 - bWidth / 2}px`;
+    // // 右控制条
+    // const rightBar = this._getBarFromType('right');
+    // rightBar.style.left = `${offsetX + wsLeft + wsWidth + bPadding}px`;
+    // rightBar.style.top = `${offsetY + wsTop + wsHeight / 2 - bWidth / 2}px`;
     // 上控制条
     const topBar = this._getBarFromType('top');
     topBar.style.left = `${offsetX + wsLeft + wsWidth / 2 - bWidth / 2}px`;
