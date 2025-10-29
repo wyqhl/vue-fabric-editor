@@ -2,53 +2,73 @@
   <div>
     <Divider plain orientation="left">{{ $t('common_elements') }}</Divider>
     <div class="tool-box">
-      <span @click="() => addText()" :draggable="true" @dragend="addText">
-        <textIcon width="26" height="26"></textIcon>
-      </span>
-      <span @click="() => addTextBox()" :draggable="true" @dragend="addTextBox">
-        <textBoxIcon width="26" height="26"></textBoxIcon>
-      </span>
-      <span @click="() => addRect()" :draggable="true" @dragend="addRect">
-        <rectIcon width="26" height="26"></rectIcon>
-      </span>
-      <span @click="() => addCircle()" :draggable="true" @dragend="addCircle">
-        <circleIcon width="26" height="26"></circleIcon>
-      </span>
-      <span @click="() => addTriangle()" :draggable="true" @dragend="addTriangle">
-        <triangleIcon width="26" height="26"></triangleIcon>
-      </span>
+      <a-tooltip content="标题" position="bottom">
+        <span @click="() => addText()" :draggable="true" @dragend="addText">
+          <textIcon width="26" height="26"></textIcon>
+        </span>
+      </a-tooltip>
+      <a-tooltip content="文字" position="bottom">
+        <span @click="() => addTextBox()" :draggable="true" @dragend="addTextBox">
+          <textBoxIcon width="26" height="26"></textBoxIcon>
+        </span>
+      </a-tooltip>
+      <a-tooltip content="矩形" position="bottom">
+        <span @click="() => addRect()" :draggable="true" @dragend="addRect">
+          <rectIcon width="26" height="26"></rectIcon>
+        </span>
+      </a-tooltip>
+      <a-tooltip content="圆形" position="bottom">
+        <span @click="() => addCircle()" :draggable="true" @dragend="addCircle">
+          <circleIcon width="26" height="26"></circleIcon>
+        </span>
+      </a-tooltip>
+      <a-tooltip content="三角形" position="bottom">
+        <span @click="() => addTriangle()" :draggable="true" @dragend="addTriangle">
+          <triangleIcon width="26" height="26"></triangleIcon>
+        </span>
+      </a-tooltip>
       <!-- 多边形按钮 -->
-      <span @click="() => addPolygon()" :draggable="true" @dragend="addPolygon">
-        <polygonIcon width="26" height="26"></polygonIcon>
-      </span>
+      <a-tooltip content="五边形" position="bottom">
+        <span @click="() => addPolygon()" :draggable="true" @dragend="addPolygon">
+          <polygonIcon width="26" height="26"></polygonIcon>
+        </span>
+      </a-tooltip>
     </div>
     <Divider plain orientation="left">{{ $t('draw_elements') }}</Divider>
     <div class="tool-box">
-      <span
-        @click="drawingLineModeSwitch('line')"
-        :class="state.isDrawingLineMode && state.lineType === 'line' && 'bg'"
-      >
-        <draw1Icon width="20" height="20"></draw1Icon>
-      </span>
-      <span
-        @click="drawingLineModeSwitch('arrow')"
-        :class="state.isDrawingLineMode && state.lineType === 'arrow' && 'bg'"
-      >
-        <!-- <svg t="1673022047861" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="4206" width="20" height="20"><path d="M187.733333 1024h-170.666666c-10.24 0-17.066667-6.826667-17.066667-17.066667v-170.666666c0-10.24 6.826667-17.066667 17.066667-17.066667h170.666666c10.24 0 17.066667 6.826667 17.066667 17.066667v170.666666c0 10.24-6.826667 17.066667-17.066667 17.066667zM34.133333 989.866667h136.533334v-136.533334H34.133333v136.533334zM1006.933333 204.8h-170.666666c-10.24 0-17.066667-6.826667-17.066667-17.066667v-170.666666c0-10.24 6.826667-17.066667 17.066667-17.066667h170.666666c10.24 0 17.066667 6.826667 17.066667 17.066667v170.666666c0 10.24-6.826667 17.066667-17.066667 17.066667zM853.333333 170.666667h136.533334V34.133333h-136.533334v136.533334z" fill="" p-id="4207"></path><path d="M187.733333 853.333333c-3.413333 0-10.24 0-13.653333-3.413333-6.826667-6.826667-6.826667-17.066667 0-23.893333l648.533333-648.533334c6.826667-6.826667 17.066667-6.826667 23.893334 0s6.826667 17.066667 0 23.893334l-648.533334 648.533333c0 3.413333-6.826667 3.413333-10.24 3.413333z" fill="" p-id="4208"></path></svg> -->
-        <draw2Icon width="20" height="20"></draw2Icon>
-      </span>
-      <span
-        @click="drawingLineModeSwitch('thinTailArrow')"
-        :class="state.isDrawingLineMode && state.lineType === 'thinTailArrow' && 'bg'"
-      >
-        <draw3Icon width="20" height="20"></draw3Icon>
-      </span>
-      <span
-        @click="drawPolygon"
-        :class="state.isDrawingLineMode && state.lineType === 'polygon' && 'bg'"
-      >
-        <draw4Icon width="20" height="20"></draw4Icon>
-      </span>
+      <a-tooltip content="直线" position="bottom">
+        <span
+          @click="drawingLineModeSwitch('line')"
+          :class="state.isDrawingLineMode && state.lineType === 'line' && 'bg'"
+        >
+          <draw1Icon width="20" height="20"></draw1Icon>
+        </span>
+      </a-tooltip>
+      <a-tooltip content="细箭头" position="bottom">
+        <span
+          @click="drawingLineModeSwitch('arrow')"
+          :class="state.isDrawingLineMode && state.lineType === 'arrow' && 'bg'"
+        >
+          <!-- <svg t="1673022047861" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="4206" width="20" height="20"><path d="M187.733333 1024h-170.666666c-10.24 0-17.066667-6.826667-17.066667-17.066667v-170.666666c0-10.24 6.826667-17.066667 17.066667-17.066667h170.666666c10.24 0 17.066667 6.826667 17.066667 17.066667v170.666666c0 10.24-6.826667 17.066667-17.066667 17.066667zM34.133333 989.866667h136.533334v-136.533334H34.133333v136.533334zM1006.933333 204.8h-170.666666c-10.24 0-17.066667-6.826667-17.066667-17.066667v-170.666666c0-10.24 6.826667-17.066667 17.066667-17.066667h170.666666c10.24 0 17.066667 6.826667 17.066667 17.066667v170.666666c0 10.24-6.826667 17.066667-17.066667 17.066667zM853.333333 170.666667h136.533334V34.133333h-136.533334v136.533334z" fill="" p-id="4207"></path><path d="M187.733333 853.333333c-3.413333 0-10.24 0-13.653333-3.413333-6.826667-6.826667-6.826667-17.066667 0-23.893333l648.533333-648.533334c6.826667-6.826667 17.066667-6.826667 23.893334 0s6.826667 17.066667 0 23.893334l-648.533334 648.533333c0 3.413333-6.826667 3.413333-10.24 3.413333z" fill="" p-id="4208"></path></svg> -->
+          <draw2Icon width="20" height="20"></draw2Icon>
+        </span>
+      </a-tooltip>
+      <a-tooltip content="粗箭头" position="bottom">
+        <span
+          @click="drawingLineModeSwitch('thinTailArrow')"
+          :class="state.isDrawingLineMode && state.lineType === 'thinTailArrow' && 'bg'"
+        >
+          <draw3Icon width="20" height="20"></draw3Icon>
+        </span>
+      </a-tooltip>
+      <a-tooltip content="多边形" position="bottom">
+        <span
+          @click="drawPolygon"
+          :class="state.isDrawingLineMode && state.lineType === 'polygon' && 'bg'"
+        >
+          <draw4Icon width="20" height="20"></draw4Icon>
+        </span>
+      </a-tooltip>
       <!-- 隐藏功能入口（路径文本） -->
       <!-- <span
         @click="drawPathText"
@@ -56,22 +76,24 @@
       >
         <Icon type="logo-tumblr" :size="22" />
       </span> -->
-      <span
-        @click="freeDraw"
-        :class="state.isDrawingLineMode && state.lineType === 'freeDraw' && 'bg'"
-      >
-        <Icon type="md-brush" :size="22" />
-      </span>
+      <a-tooltip content="画笔" position="bottom">
+        <span
+          @click="freeDraw"
+          :class="state.isDrawingLineMode && state.lineType === 'freeDraw' && 'bg'"
+        >
+          <Icon type="md-brush" :size="22" />
+        </span>
+      </a-tooltip>
     </div>
-    <Divider plain orientation="left">{{ $t('code_img') }}</Divider>
-    <div class="tool-box">
-      <span @click="canvasEditor.addQrCode">
-        <qrCodeIcon></qrCodeIcon>
-      </span>
-      <span @click="canvasEditor.addBarcode">
-        <barCodeIcon></barCodeIcon>
-      </span>
-    </div>
+    <!--    <Divider plain orientation="left">{{ $t('code_img') }}</Divider>-->
+    <!--    <div class="tool-box">-->
+    <!--      <span @click="canvasEditor.addQrCode">-->
+    <!--        <qrCodeIcon></qrCodeIcon>-->
+    <!--      </span>-->
+    <!--      <span @click="canvasEditor.addBarcode">-->
+    <!--        <barCodeIcon></barCodeIcon>-->
+    <!--      </span>-->
+    <!--    </div>-->
   </div>
 </template>
 

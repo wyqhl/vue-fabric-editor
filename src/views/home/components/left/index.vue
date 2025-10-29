@@ -19,7 +19,8 @@ const state = reactive({
   toolsBarShow: true,
 });
 // 左侧菜单渲染
-const menuActive = ref('MyTemplate');
+const menuActive = ref('tools');
+
 const leftBarComponent = {
   tools,
   myTemplate,
@@ -37,8 +38,8 @@ const leftBar = reactive([
   {
     //基础元素
     key: 'tools',
-    name: computed(() => t('elements')),
-    icon: 'md-images',
+    name: computed(() => '添加'),
+    icon: 'md-add',
   },
   {
     //模板
@@ -50,13 +51,13 @@ const leftBar = reactive([
     //素材
     key: 'myMaterial',
     name: computed(() => '素材'),
-    icon: 'ios-pulse',
+    icon: 'md-images',
   },
   {
     // 组件
     key: 'myText',
     name: computed(() => '组件'),
-    icon: 'ios-leaf-outline',
+    icon: 'ios-cube-outline',
   },
   {
     // 图层
@@ -85,7 +86,7 @@ onMounted(() => {
   // 有ID时，打开作品面板
   const route = useRoute();
   if (route?.query?.id) {
-    menuActive.value = 'myMaterial';
+    menuActive.value = 'tools';
   }
 });
 </script>

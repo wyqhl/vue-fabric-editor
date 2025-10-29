@@ -19,10 +19,8 @@
         >
           <Row class="ellipsis">
             <Col span="20">
-              <Tooltip :content="item.name || item.text || item.type" placement="left">
-                <span :class="isSelect(item) && 'active'" v-html="iconType(item.type)"></span>
-                | {{ textType(item.type, item) }}
-              </Tooltip>
+              <span :class="isSelect(item) && 'active'" v-html="iconType(item.type)"></span>
+              | {{ textType(item.type, item) }}
             </Col>
             <Col span="4">
               <Button
@@ -38,10 +36,18 @@
       <!-- 层级调整按钮 -->
       <div class="btn-box">
         <ButtonGroup v-show="isOne" size="small">
-          <Button @click="up"><span v-html="btnIconType('up')"></span></Button>
-          <Button @click="down"><span v-html="btnIconType('down')"></span></Button>
-          <Button @click="upTop"><span v-html="btnIconType('upTop')"></span></Button>
-          <Button @click="downTop"><span v-html="btnIconType('downTop')"></span></Button>
+          <a-tooltip content="上移" position="bottom">
+            <Button @click="up"><span v-html="btnIconType('up')"></span></Button>
+          </a-tooltip>
+          <a-tooltip content="下移" position="bottom">
+            <Button @click="down"><span v-html="btnIconType('down')"></span></Button>
+          </a-tooltip>
+          <a-tooltip content="置顶" position="bottom">
+            <Button @click="upTop"><span v-html="btnIconType('upTop')"></span></Button>
+          </a-tooltip>
+          <a-tooltip content="置底" position="bottom">
+            <Button @click="downTop"><span v-html="btnIconType('downTop')"></span></Button>
+          </a-tooltip>
         </ButtonGroup>
       </div>
     </template>
