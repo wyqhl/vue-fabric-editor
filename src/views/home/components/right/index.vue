@@ -115,10 +115,10 @@ const switchAttrBar = () => {
         <!-- 圆角 -->
         <attributeRounded></attributeRounded>
         <!-- 关联数据 -->
-        <attributeId></attributeId>
+        <!--        <attributeId></attributeId>-->
 
         <!-- 新增字体样式使用 -->
-        <Button @click="canvasEditor.getFontJson()" size="small">获取元素数据</Button>
+        <!--        <Button @click="canvasEditor.getFontJson()" size="small">获取元素数据</Button>-->
       </div>
     </div>
     <!-- <attribute v-if="state.show"></attribute> -->
