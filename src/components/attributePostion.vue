@@ -43,6 +43,33 @@
         </FormItem>
       </Form>
     </div>
+
+    <div v-if="isCanSetSizeTypeMatchType && baseAttr.id !== 'workspace'">
+      <!-- <h3>位置信息</h3> -->
+      <Divider plain orientation="left"><h4>尺寸</h4></Divider>
+      <!-- 通用属性 -->
+      <div v-show="isMatchType">
+        <Row :gutter="10">
+          <Col flex="1">
+            <InputNumber
+              :precision="0"
+              v-model="baseAttr.tWidth"
+              @on-change="(value) => changeCommonWH('width', value)"
+              :append="'宽度'"
+            ></InputNumber>
+          </Col>
+          <Col flex="1">
+            <InputNumber
+              :precision="0"
+              v-model="baseAttr.tHeight"
+              @on-change="(value) => changeCommonWH('height', value)"
+              :append="'高度'"
+            ></InputNumber>
+          </Col>
+        </Row>
+      </div>
+    </div>
+
     <!-- <Divider plain></Divider> -->
   </div>
 </template>
@@ -70,6 +97,9 @@ const baseType = [
 ];
 const { isMatchType, canvasEditor, isOne } = useSelect(baseType);
 
+const canSetSizeType = ['rect', 'image'];
+const { isMatchType: isCanSetSizeTypeMatchType, state } = useSelect(canSetSizeType);
+
 // 属性值
 const baseAttr = reactive({
   opacity: 0,
@@ -78,7 +108,38 @@ const baseAttr = reactive({
   top: 0,
   rx: 0,
   ry: 0,
+  width: 0,
+  height: 0,
+  scaleX: 0,
+  scaleY: 0,
+  tWidth: 0,
+  tHeight: 0,
+  id: '',
 });
+
+// 通用属性改变
+const changeCommonWH = (key, value) => {
+  const activeObject = canvasEditor.canvas.getActiveObjects()[0];
+  if (activeObject) {
+    // 宽高设置
+    if (key === 'width' || key === 'height') {
+      if (activeObject) {
+        if (key === 'width') {
+          const v = value / activeObject.width;
+          activeObject.set('scaleX', v);
+        }
+        if (key === 'height') {
+          const v = value / activeObject.height;
+          activeObject.set('scaleY', v);
+        }
+      }
+      canvasEditor.canvas.renderAll();
+      return;
+    }
+    activeObject && activeObject.set(key, value);
+    canvasEditor.canvas.renderAll();
+  }
+};
 
 // 属性获取
 const getObjectAttr = (e) => {
@@ -90,6 +151,13 @@ const getObjectAttr = (e) => {
     baseAttr.left = activeObject.get('left');
     baseAttr.top = activeObject.get('top');
     baseAttr.angle = activeObject.get('angle') || 0;
+    baseAttr.width = activeObject.get('width') || 0;
+    baseAttr.height = activeObject.get('height') || 0;
+    baseAttr.scaleX = activeObject.get('scaleX') || 0;
+    baseAttr.scaleY = activeObject.get('scaleY') || 0;
+    baseAttr.tWidth = parseInt(baseAttr.width * baseAttr.scaleX);
+    baseAttr.tHeight = parseInt(baseAttr.height * baseAttr.scaleY);
+    baseAttr.id = activeObject.get('id');
   }
 };
 
