@@ -7,7 +7,7 @@
 -->
 
 <template>
-  <div class="box attr-item-box" v-if="isOne && isMatchType">
+  <div class="box attr-item-box">
     <!-- <h3>字体属性</h3> -->
     <Divider plain orientation="left"><h4>字体属性</h4></Divider>
     <div>
@@ -15,7 +15,11 @@
       <div class="flex-view">
         <div class="flex-item">
           <div class="left font-selector">
-            <Select v-model="baseAttr.fontFamily" @on-change="changeFontFamily">
+            <Select
+              v-model="baseAttr.fontFamily"
+              @on-change="changeFontFamily"
+              style="width: 160px"
+            >
               <Option v-for="item in fontsList" :value="item.name" :key="`font-${item.name}`">
                 <div class="font-item" :style="`background-image:url('${item.img}');`">
                   {{ !item.img ? item : '' }}

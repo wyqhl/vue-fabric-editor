@@ -36,6 +36,10 @@ const canvasEditor: any = inject('canvasEditor');
 const { mixinState } = useSelectListen(canvasEditor);
 
 const attrBarShow = ref(true);
+import useSelect from '@/hooks/select';
+// 文字元素
+const textType = ['i-text', 'textbox', 'text'];
+const { isMatchType, isOne } = useSelect(textType);
 
 // 属性面板开关
 const switchAttrBar = () => {
@@ -101,7 +105,7 @@ const switchAttrBar = () => {
         <!-- 颜色 -->
         <attributeColor></attributeColor>
         <!-- 字体属性 -->
-        <attributeFont></attributeFont>
+        <attributeFont v-if="isOne && isMatchType"></attributeFont>
         <!-- 字体小数点 -->
         <attributeTextFloat></attributeTextFloat>
         <!-- 文字内容  -->
