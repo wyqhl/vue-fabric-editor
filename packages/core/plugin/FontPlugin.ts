@@ -12,7 +12,7 @@ import FontFaceObserver from 'fontfaceobserver';
 import axios from 'axios';
 import { downFile } from '../utils/utils';
 import type { IEditor, IPluginTempl } from '@kuaitu/core';
-
+import { getFontList } from '@/talkez/api/imageEditor.api';
 type IPlugin = Pick<FontPlugin, 'getFontList' | 'loadFont' | 'getFontJson' | 'downFontByJSON'>;
 
 declare module '@kuaitu/core' {
@@ -52,29 +52,48 @@ class FontPlugin implements IPluginTempl {
     if (this.cacheList.length) {
       return Promise.resolve(this.cacheList);
     }
-    if (this.tempPromise) return this.tempPromise;
-    this.tempPromise = axios
-      .get(`${this.repoSrc}/api/fonts?populate=*&pagination[pageSize]=100`)
-      .then((res) => {
-        const list = res.data.data.map((item: any) => {
-          return {
-            name: item.attributes.name,
-            type: item.attributes.type,
-            file: this.repoSrc + item.attributes.file.data.attributes.url,
-            img: this.repoSrc + item.attributes.img.data.attributes.url,
-          };
-        });
-        this.cacheList = list;
-        this.createFontCSS(list);
-        return list;
+    // if (this.tempPromise) return this.tempPromise;
+    // this.tempPromise = axios
+    //   .get(`${this.repoSrc}/api/fonts?populate=*&pagination[pageSize]=100`)
+    //   .then((res) => {
+    //     const list = res.data.data.map((item: any) => {
+    //       return {
+    //         name: item.attributes.name,
+    //         type: item.attributes.type,
+    //         file: this.repoSrc + item.attributes.file.data.attributes.url,
+    //         img: this.repoSrc + item.attributes.img.data.attributes.url,
+    //       };
+    //     });
+    //     this.cacheList = list;
+    //     this.createFontCSS(list);
+    //     return list;
+    //   });
+    // return this.tempPromise;
+    return new Promise<FontSource[]>((resolve) => {
+      getFontList().then((res) => {
+        if (res.success && res.data) {
+          const fList = res.data;
+          const list = fList.map((item: any) => {
+            return {
+              name: item.name,
+              type: item.type,
+              file: 'https://static.talkez.net/editor/font/' + item.fontName,
+              img: 'https://static.talkez.net/editor/svg/' + item.svgName,
+            };
+          });
+          this.cacheList = list;
+          this.createFontCSS(list);
+          resolve(list);
+        }
       });
-    return this.tempPromise;
+    });
   }
 
-  downFontByJSON(str: string) {
+  async downFontByJSON(str: string) {
     const object = JSON.parse(str);
     let fontFamilies: string[] = [];
     const skipFonts = ['arial'];
+    await this.getFontList();
     if (object.objects) {
       fontFamilies = JSON.parse(str)
         .objects.filter((item: Font) => {
