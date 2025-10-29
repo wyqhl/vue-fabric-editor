@@ -12,19 +12,33 @@
     <Divider plain orientation="left">
       <h4>{{ $t('bgSeting.size') }}</h4>
     </Divider>
-    <Form :label-width="40" inline class="form-wrap">
-      <FormItem :label="$t('bgSeting.width')" prop="name">
-        <InputNumber disabled v-model="width" readonly @on-change="setSize"></InputNumber>
-      </FormItem>
-      <FormItem :label="$t('bgSeting.height')" prop="name">
-        <InputNumber disabled v-model="height" readonly @on-change="setSize"></InputNumber>
-      </FormItem>
-      <FormItem :label-width="0">
-        <Button type="text" @click="showSetSize">
-          <Icon type="md-create" />
-        </Button>
-      </FormItem>
-    </Form>
+    <a-row style="width: 100%" :gutter="12">
+      <a-col :span="12">
+        <a-input readonly v-model="width">
+          <template #prefix>宽度</template>
+          <template #suffix>px</template>
+        </a-input>
+      </a-col>
+      <a-col :span="12">
+        <a-input readonly v-model="height">
+          <template #prefix>高度</template>
+          <template #suffix>px</template>
+        </a-input>
+      </a-col>
+    </a-row>
+    <!--    <Form :label-width="40" inline class="form-wrap">-->
+    <!--      <FormItem :label="$t('bgSeting.width')" prop="name">-->
+    <!--        <InputNumber disabled v-model="width" readonly @on-change="setSize"></InputNumber>-->
+    <!--      </FormItem>-->
+    <!--      <FormItem :label="$t('bgSeting.height')" prop="name">-->
+    <!--        <InputNumber disabled v-model="height" readonly @on-change="setSize"></InputNumber>-->
+    <!--      </FormItem>-->
+    <!--      <FormItem :label-width="0">-->
+    <!--        <Button type="text" @click="showSetSize">-->
+    <!--          <Icon type="md-create" />-->
+    <!--        </Button>-->
+    <!--      </FormItem>-->
+    <!--    </Form>-->
 
     <!-- <Divider plain></Divider> -->
     <!-- 修改尺寸 -->
@@ -35,6 +49,7 @@
 <script setup name="CanvasSize">
 import useSelect from '@/hooks/select';
 import modalSzie from '@/components/common/modalSzie';
+import InputNumber from '@/components/inputNumber';
 
 const { isSelect, canvasEditor } = useSelect();
 
