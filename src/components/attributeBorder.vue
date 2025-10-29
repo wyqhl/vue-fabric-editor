@@ -28,7 +28,7 @@
           <InputNumber
             v-model="baseAttr.strokeWidth"
             @on-change="(value) => changeCommon('strokeWidth', value)"
-            :append="$t('width')"
+            :append="'宽度'"
             :min="0"
           ></InputNumber>
         </Col>
