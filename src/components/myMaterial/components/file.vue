@@ -6,7 +6,7 @@
  * @Description: 模板文件
 -->
 <template>
-  <Tooltip :content="props.name" placement="top">
+  <a-tooltip :content="props.name" placement="top">
     <div class="file-type-box">
       <Image
         lazy
@@ -32,7 +32,7 @@
         </Dropdown>
       </div>
     </div>
-  </Tooltip>
+  </a-tooltip>
   <!-- 迁移文件夹 -->
   <Modal v-model="modalVisable" title="请选择迁移目录" @on-ok="transferRequest">
     <TreeSelect v-model="fileTypeId" :data="treeData" v-width="200" />

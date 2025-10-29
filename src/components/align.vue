@@ -12,48 +12,48 @@
     <Divider plain orientation="left"><h4>对齐</h4></Divider>
     <div class="bg-item">
       <!-- 水平对齐 -->
-      <Tooltip :content="$t('attrSeting.align.left')">
+      <a-tooltip :content="$t('attrSeting.align.left')">
         <Button @click="left" size="small" type="text">
           <leftIcon />
         </Button>
-      </Tooltip>
-      <Tooltip :content="$t('attrSeting.align.centerX')">
+      </a-tooltip>
+      <a-tooltip :content="$t('attrSeting.align.centerX')">
         <Button @click="xcenter" size="small" type="text">
           <centerxIcon />
         </Button>
-      </Tooltip>
-      <Tooltip :content="$t('attrSeting.align.right')">
+      </a-tooltip>
+      <a-tooltip :content="$t('attrSeting.align.right')">
         <Button @click="right" size="small" type="text">
           <rightIcon />
         </Button>
-      </Tooltip>
+      </a-tooltip>
       <!-- 垂直对齐 -->
-      <Tooltip :content="$t('attrSeting.align.top')">
+      <a-tooltip :content="$t('attrSeting.align.top')">
         <Button @click="top" size="small" type="text">
           <topIcon />
         </Button>
-      </Tooltip>
-      <Tooltip :content="$t('attrSeting.align.centerY')">
+      </a-tooltip>
+      <a-tooltip :content="$t('attrSeting.align.centerY')">
         <Button @click="ycenter" size="small" type="text">
           <centeryIcon />
         </Button>
-      </Tooltip>
-      <Tooltip :content="$t('attrSeting.align.bottom')">
+      </a-tooltip>
+      <a-tooltip :content="$t('attrSeting.align.bottom')">
         <Button @click="bottom" size="small" type="text">
           <bottomIcon />
         </Button>
-      </Tooltip>
+      </a-tooltip>
       <!-- 平均对齐 -->
-      <Tooltip :content="$t('attrSeting.align.averageX')">
+      <a-tooltip :content="$t('attrSeting.align.averageX')">
         <Button @click="xequation" size="small" type="text">
           <sxIcon />
         </Button>
-      </Tooltip>
-      <Tooltip :content="$t('attrSeting.align.averageY')">
+      </a-tooltip>
+      <a-tooltip :content="$t('attrSeting.align.averageY')">
         <Button @click="yequation" size="small" type="text">
           <syIcon />
         </Button>
-      </Tooltip>
+      </a-tooltip>
     </div>
     <!-- <Divider plain></Divider> -->
   </div>

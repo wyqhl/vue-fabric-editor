@@ -11,7 +11,7 @@
     <Divider plain orientation="left"><h4>颜色</h4></Divider>
     <!-- 通用属性 -->
     <div class="bg-item">
-      <Tooltip placement="top" theme="light">
+      <a-tooltip placement="top" theme="light">
         <div class="color-bar" :style="{ background: baseAttr.fill }"></div>
         <template #content>
           <color-picker
@@ -21,7 +21,7 @@
             @nativePick="dropColor"
           ></color-picker>
         </template>
-      </Tooltip>
+      </a-tooltip>
     </div>
     <!-- <Divider plain></Divider> -->
   </div>

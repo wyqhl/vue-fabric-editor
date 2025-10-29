@@ -9,18 +9,18 @@
 <template>
   <div style="display: inline-block">
     <!-- 后退 -->
-    <Tooltip :content="$t('history.revocation') + `(${canUndo})`">
+    <a-tooltip :content="$t('history.revocation') + `(${canUndo})`">
       <Button @click="undo" type="text" size="small" :disabled="!canUndo">
         <Icon type="ios-undo" size="20" />
       </Button>
-    </Tooltip>
+    </a-tooltip>
 
     <!-- 重做 -->
-    <Tooltip :content="$t('history.redo') + `(${canRedo})`">
+    <a-tooltip :content="$t('history.redo') + `(${canRedo})`">
       <Button @click="redo" type="text" size="small" :disabled="!canRedo">
         <Icon type="ios-redo" size="20" />
       </Button>
-    </Tooltip>
+    </a-tooltip>
     <!-- <span class="time" v-if="history.length">
       {{ useDateFormat(history[0].timestamp, 'HH:mm:ss').value }}
     </span> -->

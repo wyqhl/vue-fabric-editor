@@ -12,7 +12,7 @@
       {{ $t('myMaterial.uploadBtn') }}
     </Button>
     <div class="img-group" v-if="fileList.length">
-      <Tooltip
+      <a-tooltip
         :content="info.name"
         v-for="(info, i) in fileList"
         :key="`${i}-bai1-button`"
@@ -34,7 +34,7 @@
             @click="addImgByElement"
           />
         </div>
-      </Tooltip>
+      </a-tooltip>
     </div>
     <div class="tip" v-else>暂无素材</div>
   </div>

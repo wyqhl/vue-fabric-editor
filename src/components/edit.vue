@@ -13,9 +13,9 @@ const onEditPolygon = () => {
 </script>
 
 <template>
-  <Tooltip :content="$t('quick.editPoly')" v-if="isMatchType">
+  <a-tooltip :content="$t('quick.editPoly')" v-if="isMatchType">
     <Button long @click="onEditPolygon" icon="md-brush" type="text"></Button>
-  </Tooltip>
+  </a-tooltip>
 </template>
 
 <style scoped lang="less"></style>

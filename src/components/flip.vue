@@ -13,16 +13,16 @@
       <h4>{{ $t('attrSeting.flip.name') }}</h4>
     </Divider> -->
     <div class="bg-item">
-      <Tooltip :content="$t('attrSeting.flip.x')">
+      <a-tooltip :content="$t('attrSeting.flip.x')">
         <Button long @click="flip('X')" type="text">
           <flipX width="14" height="14"></flipX>
         </Button>
-      </Tooltip>
-      <Tooltip :content="$t('attrSeting.flip.y')">
+      </a-tooltip>
+      <a-tooltip :content="$t('attrSeting.flip.y')">
         <Button long @click="flip('Y')" type="text">
           <flipY width="14" height="14"></flipY>
         </Button>
-      </Tooltip>
+      </a-tooltip>
     </div>
 
     <!-- <Divider plain></Divider> -->

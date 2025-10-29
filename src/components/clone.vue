@@ -1,7 +1,7 @@
 <template>
-  <Tooltip v-if="isOne" :content="$t('quick.copy')">
+  <a-tooltip v-if="isOne" :content="$t('quick.copy')">
     <Button long @click="clone" icon="ios-copy" type="text"></Button>
-  </Tooltip>
+  </a-tooltip>
 </template>
 
 <script setup name="Clone">

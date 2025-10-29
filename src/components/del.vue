@@ -7,9 +7,9 @@
 -->
 
 <template>
-  <Tooltip v-if="isSelect" :content="$t('quick.del')">
+  <a-tooltip v-if="isSelect" :content="$t('quick.del')">
     <Button long @click="del" icon="ios-trash" type="text"></Button>
-  </Tooltip>
+  </a-tooltip>
 </template>
 
 <script setup name="Del">

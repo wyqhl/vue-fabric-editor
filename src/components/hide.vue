@@ -7,10 +7,10 @@
 -->
 
 <template>
-  <Tooltip :content="$t('quick.hide')" v-if="isOne">
+  <a-tooltip :content="$t('quick.hide')" v-if="isOne">
     <Button long v-if="isHide" @click="doHide(false)" icon="md-eye-off" type="text"></Button>
     <Button long v-else @click="doHide(true)" icon="md-eye" type="text"></Button>
-  </Tooltip>
+  </a-tooltip>
 </template>
 
 <script setup name="Hide">

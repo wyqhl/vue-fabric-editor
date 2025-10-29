@@ -60,9 +60,9 @@
           item-selector=".grid-item"
         >
           <div v-masonry-tile class="img-item grid-item" v-for="info in templList" :key="info.id">
-            <Tooltip :content="info.name" placement="top">
+            <a-tooltip :content="info.name" placement="top">
               <img :src="info.src" :alt="info.name" @click="toInfo(info)" />
-            </Tooltip>
+            </a-tooltip>
           </div>
         </div>
         <Page

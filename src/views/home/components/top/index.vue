@@ -14,9 +14,9 @@
 
       <myTemplName></myTemplName>
       <!-- 标尺开关 -->
-      <Tooltip :content="$t('grid')">
+      <a-tooltip :content="$t('grid')">
         <iSwitch v-model="toggleModel" size="small" class="switch"></iSwitch>
-      </Tooltip>
+      </a-tooltip>
       <Divider type="vertical" />
       <history></history>
     </div>

@@ -19,7 +19,7 @@
       <div class="img-box" v-if="pageData.length">
         <!-- 列表 -->
         <div class="img-item" v-for="info in pageData" :key="info.id">
-          <Tooltip :content="info.name" placement="top">
+          <a-tooltip :content="info.name" placement="top">
             <Image
               lazy
               :src="info.src"
@@ -30,7 +30,7 @@
               height="100%"
               :alt="info.name"
             />
-          </Tooltip>
+          </a-tooltip>
         </div>
       </div>
       <Spin size="large" fix :show="pageLoading"></Spin>

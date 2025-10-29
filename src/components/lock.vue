@@ -7,10 +7,10 @@
 -->
 
 <template>
-  <Tooltip :content="isLock ? $t('quick.unlock') : $t('quick.lock')" v-if="isOne">
+  <a-tooltip :content="isLock ? $t('quick.unlock') : $t('quick.lock')" v-if="isOne">
     <Button long v-if="isLock" @click="doLock(false)" icon="md-lock" type="text"></Button>
     <Button long v-else @click="doLock(true)" icon="md-unlock" type="text"></Button>
-  </Tooltip>
+  </a-tooltip>
 </template>
 
 <script setup name="Lock">

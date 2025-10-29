@@ -14,23 +14,23 @@
     </Divider>
     <div class="bg-item">
       <!-- 水平集中 -->
-      <Tooltip :content="$t('attrSeting.centerAlign.centerX')">
+      <a-tooltip :content="$t('attrSeting.centerAlign.centerX')">
         <Button long @click="position('centerH')" type="text">
           <centerX width="14" height="14"></centerX>
         </Button>
-      </Tooltip>
+      </a-tooltip>
       <!-- 水平垂直居中 -->
-      <Tooltip :content="$t('attrSeting.centerAlign.center')">
+      <a-tooltip :content="$t('attrSeting.centerAlign.center')">
         <Button long @click="position('center')" type="text">
           <centerIcon width="14" height="14"></centerIcon>
         </Button>
-      </Tooltip>
+      </a-tooltip>
       <!-- 垂直居中 -->
-      <Tooltip :content="$t('attrSeting.centerAlign.centerY')">
+      <a-tooltip :content="$t('attrSeting.centerAlign.centerY')">
         <Button long @click="position('centerV')" type="text">
           <centerY width="14" height="14"></centerY>
         </Button>
-      </Tooltip>
+      </a-tooltip>
     </div>
     <!-- <Divider plain></Divider> -->
   </div>

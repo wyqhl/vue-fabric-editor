@@ -40,7 +40,7 @@
       >
         <!-- 列表 -->
         <div class="list-box">
-          <Tooltip :content="info.name" v-for="info in pageData" :key="info.src" placement="top">
+          <a-tooltip :content="info.name" v-for="info in pageData" :key="info.src" placement="top">
             <div class="tmpl-img-box">
               <Image
                 lazy
@@ -51,7 +51,7 @@
                 @click="beforeClearTip(info)"
               />
             </div>
-          </Tooltip>
+          </a-tooltip>
         </div>
         <Spin size="large" fix :show="pageLoading"></Spin>
 
