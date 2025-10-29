@@ -1,12 +1,14 @@
 <script lang="ts" setup>
 // 左侧组件
-import importTmpl from '@/components/importTmpl.vue';
+import myTemplate from '@/components/talkez/left/MyTemplate.vue';
+//import importTmpl from '@/components/importTmpl.vue';
 import fontStyle from '@/components/fontStyle.vue';
-import myMaterial from '@/components/myMaterial/index.vue';
 import tools from '@/components/tools.vue';
 import material from '@/components/material.vue';
 import layer from '@/components/layer.vue';
 import { useI18n } from 'vue-i18n';
+import myMaterial from '@/components/talkez/left/MyMaterial.vue';
+import myText from '@/components/talkez/left/MyText.vue';
 // 路由
 import { useRoute } from 'vue-router';
 
@@ -17,25 +19,21 @@ const state = reactive({
   toolsBarShow: true,
 });
 // 左侧菜单渲染
-const menuActive = ref('importTmpl');
+const menuActive = ref('MyTemplate');
 const leftBarComponent = {
-  importTmpl,
   tools,
+  myTemplate,
+  //importTmpl,
   material,
   fontStyle,
   layer,
   myMaterial,
+  myText,
 };
 
 // fix: 修复vue-i18n function "t" not reactive inside ref object
-// https://github.com/intlify/vue-i18n/issues/1396#issuecomment-1716123143
+//// https://github.com/intlify/vue-i18n/issues/1396#issuecomment-1716123143
 const leftBar = reactive([
-  {
-    //模板
-    key: 'importTmpl',
-    name: computed(() => t('templates')),
-    icon: 'md-book',
-  },
   {
     //基础元素
     key: 'tools',
@@ -43,15 +41,21 @@ const leftBar = reactive([
     icon: 'md-images',
   },
   {
-    //字体样式
-    key: 'fontStyle',
-    name: computed(() => t('font_style')),
+    //模板
+    key: 'myTemplate',
+    name: computed(() => t('templates')),
+    icon: 'md-book',
+  },
+  {
+    //素材
+    key: 'myMaterial',
+    name: computed(() => '素材'),
     icon: 'ios-pulse',
   },
   {
-    // 图片元素
-    key: 'material',
-    name: computed(() => t('material.cartoon')),
+    // 组件
+    key: 'myText',
+    name: computed(() => '组件'),
     icon: 'ios-leaf-outline',
   },
   {
@@ -60,19 +64,19 @@ const leftBar = reactive([
     name: computed(() => t('layers')),
     icon: 'md-reorder',
   },
-  {
-    // 用户素材
-    key: 'myMaterial',
-    name: computed(() => t('mine')),
-    icon: 'ios-contact-outline',
-  },
+  // {
+  //   // 用户素材
+  //   key: 'myMaterial',
+  //   name: computed(() => t('mine')),
+  //   icon: 'ios-contact-outline',
+  // },
 ]);
 // 隐藏工具条
 const hideToolsBar = () => {
   state.toolsBarShow = !state.toolsBarShow;
 };
 // 展示工具条
-const showToolsBar = (val) => {
+const showToolsBar = (val: string) => {
   menuActive.value = val;
   state.toolsBarShow = true;
 };
