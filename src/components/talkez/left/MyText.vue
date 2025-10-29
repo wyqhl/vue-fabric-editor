@@ -21,7 +21,12 @@
         <!--        </div>-->
       </a-row>
       <a-row
-        style="width: 100%; overflow-y: auto; max-height: 1000px; padding-bottom: 100px"
+        :style="{
+          width: '100%',
+          overflowY: 'auto',
+          maxHeight: h + 'px',
+          paddingBottom: '100px',
+        }"
         class="scroll-hidden"
       >
         <a-spin :loading="loading" style="width: 100%">
@@ -148,6 +153,9 @@ import { fabric } from 'fabric';
 import { Message } from '@arco-design/web-vue';
 import useSelect from '@/hooks/select';
 const { canvasEditor } = useSelect();
+
+const h = ref(500);
+
 //素材数据
 let dataList = reactive([]);
 //原始数据
@@ -234,8 +242,20 @@ function capitalizeFirstLetter(string) {
   return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
+const setHeight = () => {
+  h.value = window.innerHeight - 55;
+};
+
+onUnmounted(async () => {
+  window.removeEventListener('resize', setHeight);
+});
+
 onMounted(async () => {
+  setHeight();
   getList();
+  window.addEventListener('resize', () => {
+    setHeight();
+  });
 });
 </script>
 <style scoped>

@@ -21,7 +21,12 @@
         <!--        </div>-->
       </a-row>
       <a-row
-        style="width: 100%; overflow-y: auto; max-height: 1000px; padding-bottom: 100px"
+        :style="{
+          width: '100%',
+          overflowY: 'auto',
+          maxHeight: h + 'px',
+          paddingBottom: '100px',
+        }"
         class="scroll-hidden"
       >
         <a-spin :loading="loading" style="width: 100%">
@@ -144,6 +149,9 @@
 import { reactive, ref } from 'vue';
 import { queryMaterialIndexData } from '@/talkez/api/imageEditor.api';
 import useSelect from '@/hooks/select';
+
+const h = ref(500);
+
 const { canvasEditor } = useSelect();
 //素材数据
 let dataList = reactive([]);
@@ -216,8 +224,20 @@ const onClickItem = async (item) => {
   });
 };
 
+const setHeight = () => {
+  h.value = window.innerHeight - 55;
+};
+
+onUnmounted(async () => {
+  window.removeEventListener('resize', setHeight);
+});
+
 onMounted(async () => {
+  setHeight();
   getList();
+  window.addEventListener('resize', () => {
+    setHeight();
+  });
 });
 </script>
 <style scoped>
