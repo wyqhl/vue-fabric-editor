@@ -198,8 +198,8 @@ const goDetail = (item) => {
 //查询素材数据
 const getList = () => {
   queryMaterialIndexData('TEXT').then((res) => {
-    indexDataList = res.data;
-    dataList = res.data;
+    indexDataList.push(...res.data);
+    dataList.push(...res.data);
     loading.value = false;
   });
 };
