@@ -129,6 +129,7 @@ function receiveMessage(e: MessageEvent) {
           const elType = capitalizeFirstLetter(el.type);
           new fabric[elType].fromObject(el, (fabricEl) => {
             canvasEditor.addBaseType(fabricEl);
+            discardActiveObject();
             window.parent.postMessage({ event: 'setJsonComplete' }, '*');
           });
         }
@@ -137,10 +138,18 @@ function receiveMessage(e: MessageEvent) {
       const json = e.data.data.json;
       if (json) {
         canvasEditor.loadJSON(JSON.stringify(JSON.parse(json)), () => {
+          discardActiveObject();
           window.parent.postMessage({ event: 'setJsonComplete' }, '*');
         });
       }
     }
+  }
+}
+
+function discardActiveObject() {
+  if (canvasEditor && canvasEditor.canvas) {
+    canvasEditor?.canvas?.discardActiveObject();
+    canvasEditor?.canvas?.renderAll();
   }
 }
 
