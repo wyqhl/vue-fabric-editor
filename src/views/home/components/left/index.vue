@@ -8,7 +8,7 @@ import material from '@/components/material.vue';
 import layer from '@/components/layer.vue';
 import { useI18n } from 'vue-i18n';
 import myMaterial from '@/components/talkez/left/MyMaterial.vue';
-import myText from '@/components/talkez/left/MyText.vue';
+import myWidget from '@/components/talkez/left/MyWidget.vue';
 // 路由
 import { useRoute } from 'vue-router';
 
@@ -29,7 +29,7 @@ const leftBarComponent = {
   fontStyle,
   layer,
   myMaterial,
-  myText,
+  myWidget,
 };
 
 // fix: 修复vue-i18n function "t" not reactive inside ref object
@@ -55,7 +55,7 @@ const leftBar = reactive([
   },
   {
     // 组件
-    key: 'myText',
+    key: 'myWidget',
     name: computed(() => '组件'),
     icon: 'ios-cube-outline',
   },

@@ -205,7 +205,7 @@ const goDetail = (item) => {
 
 //查询素材数据
 const getList = () => {
-  queryMaterialIndexData('TEXT').then((res) => {
+  queryMaterialIndexData('WIDGET').then((res) => {
     indexDataList.push(...res.data);
     dataList.push(...res.data);
     loading.value = false;
