@@ -321,7 +321,7 @@ const addTextH1 = (event) => {
     fill: '#000000FF',
   });
 
-  canvasEditor.addBaseType(text, { center: true, event });
+  canvasEditor.addBaseType(text, { center: true });
 };
 
 //副标题
@@ -333,7 +333,7 @@ const addTextH2 = (event) => {
     fill: '#000000FF',
   });
 
-  canvasEditor.addBaseType(text, { center: true, event });
+  canvasEditor.addBaseType(text, { center: true });
 };
 
 //正文
@@ -345,7 +345,7 @@ const addText = (event) => {
     fill: '#000000FF',
   });
 
-  canvasEditor.addBaseType(text, { center: true, event });
+  canvasEditor.addBaseType(text, { center: true });
 };
 
 const addTextBox = (event) => {
@@ -358,7 +358,7 @@ const addTextBox = (event) => {
     fill: '#000000FF',
   });
 
-  canvasEditor.addBaseType(text, { center: true, event });
+  canvasEditor.addBaseType(text, { center: true });
 };
 
 const addTriangle = (event) => {
@@ -370,7 +370,7 @@ const addTriangle = (event) => {
     fill: '#92706BFF',
     name: '三角形',
   });
-  canvasEditor.addBaseType(triangle, { center: true, event });
+  canvasEditor.addBaseType(triangle, { center: true });
 };
 
 const addPolygon = (event) => {
@@ -390,7 +390,7 @@ const addPolygon = (event) => {
       y: 0,
     },
   });
-  canvasEditor.addBaseType(polygon, { center: true, event });
+  canvasEditor.addBaseType(polygon, { center: true });
 };
 
 const addCircle = (event) => {
@@ -402,7 +402,7 @@ const addCircle = (event) => {
     // id: uuid(),
     name: '圆形',
   });
-  canvasEditor.addBaseType(circle, { center: true, event });
+  canvasEditor.addBaseType(circle, { center: true });
 };
 
 const addRect = (event) => {
@@ -415,7 +415,7 @@ const addRect = (event) => {
     name: '矩形',
   });
 
-  canvasEditor.addBaseType(rect, { center: true, event });
+  canvasEditor.addBaseType(rect, { center: true });
 };
 const drawPolygon = () => {
   const onEnd = () => {
