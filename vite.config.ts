@@ -23,7 +23,7 @@ const config = ({ mode }) => {
   const envPrefix = 'APP_';
   const { APP_TITLE = '', APP_BASE_PATH } = loadEnv(mode, process.cwd(), envPrefix);
   return {
-    base: isProd ? APP_BASE_PATH : '/',
+    base: '/',
     plugins: [
       vue(),
       autoImports({

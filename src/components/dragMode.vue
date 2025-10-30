@@ -17,6 +17,7 @@
         background: #fff;
         border-radius: 4px;
         padding: 4px 8px;
+        user-select: none;
       "
     >
       <a-space>
