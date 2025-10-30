@@ -12,12 +12,12 @@
       <!-- 组合按钮 多选时不可用 -->
       <Button v-if="isMultiple" long :disabled="!isMultiple" @click="group" type="text">
         <groupIcon width="14" height="14"></groupIcon>
-        {{ $t('attrSeting.group') }}
+        成组
       </Button>
       <!-- 拆分组合按钮，为单选且组元素时可用 -->
       <Button v-if="isGroup" long :disabled="!isGroup" @click="unGroup" type="text">
         <unGroupIcon width="14" height="14"></unGroupIcon>
-        {{ $t('attrSeting.unGroup') }}
+        拆分组
       </Button>
     </div>
 

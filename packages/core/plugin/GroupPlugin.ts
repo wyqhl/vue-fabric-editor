@@ -44,6 +44,14 @@ class GroupPlugin implements IPluginTempl {
     const objectsInGroup = activegroup.getObjects();
     activegroup.clone((newgroup: fabric.Group) => {
       newgroup.set('id', uuid());
+      newgroup._objects.forEach((object: fabric.Group) => {
+        if (object.type === 'rect') {
+          const rx = object.get('rx') || 0;
+          if (rx > 0) {
+            object.set('roundValue', rx);
+          }
+        }
+      });
       this.canvas.remove(activegroup);
       objectsInGroup.forEach((object) => {
         this.canvas.remove(object);
