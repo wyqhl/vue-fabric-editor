@@ -19,7 +19,7 @@
             <div class="inside-shadow"></div>
             <canvas id="canvas" :class="state.ruler ? 'design-stage-grid' : ''"></canvas>
             <dragMode v-if="state.show"></dragMode>
-            <zoom></zoom>
+            <!--            <zoom></zoom>-->
           </div>
         </div>
         <Right v-if="state.show"></Right>

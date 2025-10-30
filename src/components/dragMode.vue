@@ -8,11 +8,32 @@
 
 <template>
   <div class="box">
-    <Switch size="large" v-model="status" @on-change="switchMode">
-      <template #open>
-        <span>Drag</span>
-      </template>
-    </Switch>
+    <div
+      style="
+        width: max-content;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: #fff;
+        border-radius: 4px;
+        padding: 4px 8px;
+      "
+    >
+      <a-space>
+        <div style="font-size: 12px">拖拽模式</div>
+        <div>
+          <a-switch v-model="status" @change="switchMode">
+            <template #checked>开启</template>
+            <template #unchecked>关闭</template>
+          </a-switch>
+        </div>
+      </a-space>
+    </div>
+    <!--    <Switch size="large" v-model="status" @on-change="switchMode">-->
+    <!--      <template #open>-->
+    <!--        <span>Drag</span>-->
+    <!--      </template>-->
+    <!--    </Switch>-->
   </div>
 </template>
 
@@ -42,7 +63,7 @@ onBeforeUnmount(() => {
 <style scoped lang="less">
 .box {
   position: absolute;
-  right: 193px;
+  right: 14px;
   bottom: 14px;
 }
 </style>

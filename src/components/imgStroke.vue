@@ -7,19 +7,24 @@
     <div class="hd-wrap">
       <div class="hd">
         <span>启用图像描边</span>
-        <Poptip trigger="hover" content="只支持png透明图像">
-          <span><Icon type="ios-alert" color="#f34250" /></span>
-        </Poptip>
+        <a-tooltip trigger="hover" content="只支持png透明图像">
+          <span><Icon type="ios-alert" color="var(--color-fill-4)" /></span>
+        </a-tooltip>
       </div>
 
-      <iSwitch v-model="openImgStroke" size="large" class="switch" @on-change="onSwitchChange">
-        <template #open>
-          <span>开启</span>
-        </template>
-        <template #close>
-          <span>关闭</span>
-        </template>
-      </iSwitch>
+      <!--      <iSwitch v-model="openImgStroke" size="large" class="switch" @on-change="onSwitchChange">-->
+      <!--        <template #open>-->
+      <!--          <span>开启</span>-->
+      <!--        </template>-->
+      <!--        <template #close>-->
+      <!--          <span>关闭</span>-->
+      <!--        </template>-->
+      <!--      </iSwitch>-->
+
+      <a-switch v-model="openImgStroke" @change="onSwitchChange">
+        <template #checked>开启</template>
+        <template #unchecked>关闭</template>
+      </a-switch>
     </div>
 
     <template v-if="openImgStroke">
@@ -28,14 +33,19 @@
           <span>是否只显示描边</span>
         </div>
 
-        <iSwitch v-model="isOnlyStroke" size="large" class="switch" @on-change="updateStroke">
-          <template #open>
-            <span>是</span>
-          </template>
-          <template #close>
-            <span>否</span>
-          </template>
-        </iSwitch>
+        <!--        <iSwitch v-model="isOnlyStroke" size="large" class="switch" @on-change="updateStroke">-->
+        <!--          <template #open>-->
+        <!--            <span>是</span>-->
+        <!--          </template>-->
+        <!--          <template #close>-->
+        <!--            <span>否</span>-->
+        <!--          </template>-->
+        <!--        </iSwitch>-->
+
+        <a-switch v-model="isOnlyStroke" @change="updateStroke">
+          <template #checked>是</template>
+          <template #unchecked>否</template>
+        </a-switch>
       </div>
       <div class="operation">
         <div class="hd" style="flex-basis: 98px">
