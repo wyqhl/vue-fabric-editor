@@ -101,7 +101,6 @@ class FontPlugin implements IPluginTempl {
       return;
     }
     if (activeObject) {
-      debugger;
       const json = activeObject.toJSON([
         'id',
         'gradientAngle',
