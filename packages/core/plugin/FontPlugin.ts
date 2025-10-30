@@ -101,7 +101,14 @@ class FontPlugin implements IPluginTempl {
       return;
     }
     if (activeObject) {
-      const json = activeObject.toJSON(['id', 'gradientAngle', 'selectable', 'hasControls']);
+      debugger;
+      const json = activeObject.toJSON([
+        'id',
+        'gradientAngle',
+        'selectable',
+        'hasControls',
+        'roundValue',
+      ]);
       const fileStr = `data:text/json;charset=utf-8,${encodeURIComponent(
         JSON.stringify(json, null, '\t')
       )}`;

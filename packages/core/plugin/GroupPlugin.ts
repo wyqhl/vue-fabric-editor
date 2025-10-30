@@ -47,8 +47,13 @@ class GroupPlugin implements IPluginTempl {
       newgroup._objects.forEach((object: fabric.Group) => {
         if (object.type === 'rect') {
           const rx = object.get('rx') || 0;
+          const scaleX = object.get('scaleX') || 0;
           if (rx > 0) {
-            object.set('roundValue', rx);
+            if (scaleX > 0) {
+              object.set('roundValue', rx / (1 / scaleX));
+            } else {
+              object.set('roundValue', rx);
+            }
           }
         }
       });
