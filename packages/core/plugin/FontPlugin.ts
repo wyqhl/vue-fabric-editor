@@ -13,7 +13,11 @@ import axios from 'axios';
 import { downFile } from '../utils/utils';
 import type { IEditor, IPluginTempl } from '@kuaitu/core';
 import { getFontList } from '@/talkez/api/imageEditor.api';
-type IPlugin = Pick<FontPlugin, 'getFontList' | 'loadFont' | 'getFontJson' | 'downFontByJSON'>;
+type IPlugin = Pick<
+  FontPlugin,
+  'getFontList' | 'loadFont' | 'getFontJson' | 'downFontByJSON' | 'getFontData'
+>;
+import { Message } from '@arco-design/web-vue';
 
 declare module '@kuaitu/core' {
   // eslint-disable-next-line @typescript-eslint/no-empty-interface
@@ -35,7 +39,7 @@ interface FontSource {
 class FontPlugin implements IPluginTempl {
   private tempPromise: Promise<FontSource[]> | null;
   static pluginName = 'FontPlugin';
-  static apis = ['getFontList', 'loadFont', 'getFontJson', 'downFontByJSON'];
+  static apis = ['getFontList', 'loadFont', 'getFontJson', 'downFontByJSON', 'getFontData'];
   repoSrc: string;
   cacheList: FontSource[];
   constructor(public canvas: fabric.Canvas, public editor: IEditor, config: { repoSrc: string }) {
@@ -87,6 +91,28 @@ class FontPlugin implements IPluginTempl {
         }
       });
     });
+  }
+
+  // 获取字体数据 新增字体样式使用
+  getFontData() {
+    const activeObject = this.canvas.getActiveObject();
+    if (!activeObject) {
+      Message.warning('请选中需要保存的文字或组合');
+      return;
+    }
+    if (activeObject) {
+      const json = activeObject.toJSON(['id', 'gradientAngle', 'selectable', 'hasControls']);
+      const fileStr = `data:text/json;charset=utf-8,${encodeURIComponent(
+        JSON.stringify(json, null, '\t')
+      )}`;
+      const dataUrl = activeObject.toDataURL({});
+      // downFile(fileStr, 'font.json');
+      // downFile(dataUrl, 'font.png');
+      return {
+        dataUrl: dataUrl,
+        json: json,
+      };
+    }
   }
 
   async downFontByJSON(str: string) {
