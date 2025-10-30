@@ -8,38 +8,58 @@
 
 <template>
   <div class="box">
-    <div
-      style="
-        width: max-content;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        background: #fff;
-        border-radius: 4px;
-        padding: 4px 8px;
-        user-select: none;
-      "
-    >
-      <a-space>
-        <div style="font-size: 12px">拖拽模式</div>
-        <div>
-          <a-switch v-model="status" @change="switchMode">
-            <template #checked>开启</template>
-            <template #unchecked>关闭</template>
-          </a-switch>
-        </div>
-      </a-space>
-    </div>
-    <!--    <Switch size="large" v-model="status" @on-change="switchMode">-->
-    <!--      <template #open>-->
-    <!--        <span>Drag</span>-->
-    <!--      </template>-->
-    <!--    </Switch>-->
+    <a-space>
+      <div
+        style="
+          width: max-content;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          background: #fff;
+          border-radius: 4px;
+          padding: 4px 8px;
+          user-select: none;
+        "
+      >
+        <a-space>
+          <div style="cursor: pointer">
+            <a-tooltip :content="'撤销(' + canUndo + ')'">
+              <Icon type="ios-undo" size="20" @click="undo" />
+            </a-tooltip>
+          </div>
+          <div style="cursor: pointer">
+            <a-tooltip :content="'重做(' + canRedo + ')'">
+              <Icon type="ios-redo" size="20" @click="redo" />
+            </a-tooltip>
+          </div>
+        </a-space>
+      </div>
+      <div
+        style="
+          width: max-content;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          background: #fff;
+          border-radius: 4px;
+          padding: 3px 6px;
+          user-select: none;
+        "
+      >
+        <a-space>
+          <div style="font-size: 12px">拖拽模式</div>
+          <div>
+            <a-switch v-model="status" @change="switchMode"></a-switch>
+          </div>
+        </a-space>
+      </div>
+    </a-space>
   </div>
 </template>
 
 <script setup name="Drag">
 import useSelect from '@/hooks/select';
+import { Icon } from 'view-ui-plus';
 const status = ref(false);
 const { canvasEditor } = useSelect();
 
@@ -51,9 +71,24 @@ const switchMode = (val) => {
   }
 };
 
+const canUndo = ref(0);
+const canRedo = ref(0);
+// 后退
+const undo = () => {
+  canvasEditor.undo();
+};
+// 重做
+const redo = () => {
+  canvasEditor.redo();
+};
+
 onMounted(() => {
   canvasEditor.on('startDring', () => (status.value = true));
   canvasEditor.on('endDring', () => (status.value = false));
+  canvasEditor.on('historyUpdate', (canUndoParam, canRedoParam) => {
+    canUndo.value = canUndoParam;
+    canRedo.value = canRedoParam;
+  });
 });
 
 onBeforeUnmount(() => {
