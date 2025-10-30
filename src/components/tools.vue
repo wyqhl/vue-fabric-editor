@@ -1,90 +1,239 @@
 <template>
-  <div>
-    <Divider plain orientation="left">{{ $t('common_elements') }}</Divider>
-    <div class="tool-box">
-      <a-tooltip content="标题" position="bottom">
-        <span @click="() => addText()" :draggable="true" @dragend="addText">
-          <textIcon width="26" height="26"></textIcon>
-        </span>
-      </a-tooltip>
-      <a-tooltip content="文字" position="bottom">
-        <span @click="() => addTextBox()" :draggable="true" @dragend="addTextBox">
-          <textBoxIcon width="26" height="26"></textBoxIcon>
-        </span>
-      </a-tooltip>
-      <a-tooltip content="矩形" position="bottom">
-        <span @click="() => addRect()" :draggable="true" @dragend="addRect">
-          <rectIcon width="26" height="26"></rectIcon>
-        </span>
-      </a-tooltip>
-      <a-tooltip content="圆形" position="bottom">
-        <span @click="() => addCircle()" :draggable="true" @dragend="addCircle">
-          <circleIcon width="26" height="26"></circleIcon>
-        </span>
-      </a-tooltip>
-      <a-tooltip content="三角形" position="bottom">
-        <span @click="() => addTriangle()" :draggable="true" @dragend="addTriangle">
-          <triangleIcon width="26" height="26"></triangleIcon>
-        </span>
-      </a-tooltip>
-      <!-- 多边形按钮 -->
-      <a-tooltip content="五边形" position="bottom">
-        <span @click="() => addPolygon()" :draggable="true" @dragend="addPolygon">
-          <polygonIcon width="26" height="26"></polygonIcon>
-        </span>
-      </a-tooltip>
+  <div style="padding-top: 12px">
+    <a-row style="margin-bottom: 10px">
+      <h4>插入</h4>
+    </a-row>
+    <div>
+      <a-row :gutter="12">
+        <a-col :span="8">
+          <div class="button" @click="importImages">
+            <a-space direction="vertical" :size="[10, 10]">
+              <div style="width: 100%; text-align: center">
+                <icon-image size="26" />
+              </div>
+              <div style="width: 100%; text-align: center">图片</div>
+            </a-space>
+          </div>
+        </a-col>
+      </a-row>
     </div>
-    <Divider plain orientation="left">{{ $t('draw_elements') }}</Divider>
-    <div class="tool-box">
-      <a-tooltip content="直线" position="bottom">
-        <span
-          @click="drawingLineModeSwitch('line')"
-          :class="state.isDrawingLineMode && state.lineType === 'line' && 'bg'"
-        >
-          <draw1Icon width="20" height="20"></draw1Icon>
-        </span>
-      </a-tooltip>
-      <a-tooltip content="细箭头" position="bottom">
-        <span
-          @click="drawingLineModeSwitch('arrow')"
-          :class="state.isDrawingLineMode && state.lineType === 'arrow' && 'bg'"
-        >
-          <!-- <svg t="1673022047861" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="4206" width="20" height="20"><path d="M187.733333 1024h-170.666666c-10.24 0-17.066667-6.826667-17.066667-17.066667v-170.666666c0-10.24 6.826667-17.066667 17.066667-17.066667h170.666666c10.24 0 17.066667 6.826667 17.066667 17.066667v170.666666c0 10.24-6.826667 17.066667-17.066667 17.066667zM34.133333 989.866667h136.533334v-136.533334H34.133333v136.533334zM1006.933333 204.8h-170.666666c-10.24 0-17.066667-6.826667-17.066667-17.066667v-170.666666c0-10.24 6.826667-17.066667 17.066667-17.066667h170.666666c10.24 0 17.066667 6.826667 17.066667 17.066667v170.666666c0 10.24-6.826667 17.066667-17.066667 17.066667zM853.333333 170.666667h136.533334V34.133333h-136.533334v136.533334z" fill="" p-id="4207"></path><path d="M187.733333 853.333333c-3.413333 0-10.24 0-13.653333-3.413333-6.826667-6.826667-6.826667-17.066667 0-23.893333l648.533333-648.533334c6.826667-6.826667 17.066667-6.826667 23.893334 0s6.826667 17.066667 0 23.893334l-648.533334 648.533333c0 3.413333-6.826667 3.413333-10.24 3.413333z" fill="" p-id="4208"></path></svg> -->
-          <draw2Icon width="20" height="20"></draw2Icon>
-        </span>
-      </a-tooltip>
-      <a-tooltip content="粗箭头" position="bottom">
-        <span
-          @click="drawingLineModeSwitch('thinTailArrow')"
-          :class="state.isDrawingLineMode && state.lineType === 'thinTailArrow' && 'bg'"
-        >
-          <draw3Icon width="20" height="20"></draw3Icon>
-        </span>
-      </a-tooltip>
-      <a-tooltip content="多边形" position="bottom">
-        <span
-          @click="drawPolygon"
-          :class="state.isDrawingLineMode && state.lineType === 'polygon' && 'bg'"
-        >
-          <draw4Icon width="20" height="20"></draw4Icon>
-        </span>
-      </a-tooltip>
-      <!-- 隐藏功能入口（路径文本） -->
-      <!-- <span
+    <a-row style="margin-bottom: 10px">
+      <h4>文本</h4>
+    </a-row>
+    <div>
+      <a-row :gutter="12">
+        <a-col :span="8">
+          <div class="button" @click="addTextH1">
+            <a-space direction="vertical" :size="[10, 10]">
+              <div style="width: 100%; text-align: center">
+                <icon-h1 size="26" />
+              </div>
+              <div style="width: 100%; text-align: center">标题</div>
+            </a-space>
+          </div>
+        </a-col>
+        <a-col :span="8">
+          <div class="button" @click="addTextH2">
+            <a-space direction="vertical" :size="[10, 10]">
+              <div style="width: 100%; text-align: center">
+                <icon-h2 size="26" />
+              </div>
+              <div style="width: 100%; text-align: center">副标题</div>
+            </a-space>
+          </div>
+        </a-col>
+        <a-col :span="8">
+          <div class="button" @click="addText">
+            <a-space direction="vertical" :size="[10, 10]">
+              <div style="width: 100%; text-align: center">
+                <textBoxIcon width="26" height="26"></textBoxIcon>
+              </div>
+              <div style="width: 100%; text-align: center">正文</div>
+            </a-space>
+          </div>
+        </a-col>
+      </a-row>
+    </div>
+    <a-row style="margin-bottom: 10px">
+      <h4>形状</h4>
+    </a-row>
+    <div>
+      <a-row :gutter="12">
+        <a-col :span="8">
+          <div class="button" @click="addRect">
+            <a-space direction="vertical" :size="[10, 10]">
+              <div style="width: 100%; text-align: center">
+                <rectIcon width="26" height="26"></rectIcon>
+              </div>
+              <div style="width: 100%; text-align: center">矩形</div>
+            </a-space>
+          </div>
+        </a-col>
+        <a-col :span="8">
+          <div class="button" @click="addCircle">
+            <a-space direction="vertical" :size="[10, 10]">
+              <div style="width: 100%; text-align: center">
+                <circleIcon width="26" height="26"></circleIcon>
+              </div>
+              <div style="width: 100%; text-align: center">圆形</div>
+            </a-space>
+          </div>
+        </a-col>
+        <a-col :span="8">
+          <div class="button" @click="addTriangle">
+            <a-space direction="vertical" :size="[10, 10]">
+              <div style="width: 100%; text-align: center">
+                <triangleIcon width="26" height="26"></triangleIcon>
+              </div>
+              <div style="width: 100%; text-align: center">三角形</div>
+            </a-space>
+          </div>
+        </a-col>
+      </a-row>
+    </div>
+
+    <a-row style="margin-bottom: 10px">
+      <h4>绘制</h4>
+    </a-row>
+    <div>
+      <a-row :gutter="12">
+        <a-col :span="8">
+          <div class="button" @click="drawingLineModeSwitch('line')">
+            <a-space direction="vertical" :size="[10, 10]">
+              <div style="width: 100%; text-align: center">
+                <draw1Icon width="26" height="26"></draw1Icon>
+              </div>
+              <div style="width: 100%; text-align: center">直线</div>
+            </a-space>
+          </div>
+        </a-col>
+        <a-col :span="8">
+          <div class="button" @click="drawingLineModeSwitch('arrow')">
+            <a-space direction="vertical" :size="[10, 10]">
+              <div style="width: 100%; text-align: center">
+                <draw2Icon width="26" height="26"></draw2Icon>
+              </div>
+              <div style="width: 100%; text-align: center">细箭头</div>
+            </a-space>
+          </div>
+        </a-col>
+        <a-col :span="8">
+          <div class="button" @click="drawingLineModeSwitch('thinTailArrow')">
+            <a-space direction="vertical" :size="[10, 10]">
+              <div style="width: 100%; text-align: center">
+                <draw3Icon width="26" height="26"></draw3Icon>
+              </div>
+              <div style="width: 100%; text-align: center">粗箭头</div>
+            </a-space>
+          </div>
+        </a-col>
+        <a-col :span="8">
+          <div class="button" @click="drawPolygon">
+            <a-space direction="vertical" :size="[10, 10]">
+              <div style="width: 100%; text-align: center">
+                <draw4Icon width="26" height="26"></draw4Icon>
+              </div>
+              <div style="width: 100%; text-align: center">多边形</div>
+            </a-space>
+          </div>
+        </a-col>
+        <a-col :span="8">
+          <div class="button" @click="freeDraw">
+            <a-space direction="vertical" :size="[10, 10]">
+              <div style="width: 100%; text-align: center">
+                <Icon type="md-brush" :size="26" />
+              </div>
+              <div style="width: 100%; text-align: center">画笔</div>
+            </a-space>
+          </div>
+        </a-col>
+      </a-row>
+    </div>
+
+    <!--    <div class="tool-box">-->
+    <!--      <a-tooltip content="标题" position="bottom">-->
+    <!--        <span @click="() => addText()" :draggable="true" @dragend="addText">-->
+    <!--          <textIcon width="26" height="26"></textIcon>-->
+    <!--        </span>-->
+    <!--      </a-tooltip>-->
+    <!--      <a-tooltip content="文字" position="bottom">-->
+    <!--        <span @click="() => addTextBox()" :draggable="true" @dragend="addTextBox">-->
+    <!--          <textBoxIcon width="26" height="26"></textBoxIcon>-->
+    <!--        </span>-->
+    <!--      </a-tooltip>-->
+    <!--      <a-tooltip content="矩形" position="bottom">-->
+    <!--        <span @click="() => addRect()" :draggable="true" @dragend="addRect">-->
+    <!--          <rectIcon width="26" height="26"></rectIcon>-->
+    <!--        </span>-->
+    <!--      </a-tooltip>-->
+    <!--      <a-tooltip content="圆形" position="bottom">-->
+    <!--        <span @click="() => addCircle()" :draggable="true" @dragend="addCircle">-->
+    <!--          <circleIcon width="26" height="26"></circleIcon>-->
+    <!--        </span>-->
+    <!--      </a-tooltip>-->
+    <!--      <a-tooltip content="三角形" position="bottom">-->
+    <!--        <span @click="() => addTriangle()" :draggable="true" @dragend="addTriangle">-->
+    <!--          <triangleIcon width="26" height="26"></triangleIcon>-->
+    <!--        </span>-->
+    <!--      </a-tooltip>-->
+    <!--      &lt;!&ndash; 多边形按钮 &ndash;&gt;-->
+    <!--      <a-tooltip content="五边形" position="bottom">-->
+    <!--        <span @click="() => addPolygon()" :draggable="true" @dragend="addPolygon">-->
+    <!--          <polygonIcon width="26" height="26"></polygonIcon>-->
+    <!--        </span>-->
+    <!--      </a-tooltip>-->
+    <!--    </div>-->
+    <!--    <Divider plain orientation="left">绘制元素</Divider>-->
+    <!--    <div class="tool-box">-->
+    <!--      <a-tooltip content="直线" position="bottom">-->
+    <!--        <span-->
+    <!--          @click="drawingLineModeSwitch('line')"-->
+    <!--          :class="state.isDrawingLineMode && state.lineType === 'line' && 'bg'"-->
+    <!--        >-->
+    <!--          <draw1Icon width="20" height="20"></draw1Icon>-->
+    <!--        </span>-->
+    <!--      </a-tooltip>-->
+    <!--      <a-tooltip content="细箭头" position="bottom">-->
+    <!--        <span-->
+    <!--          @click="drawingLineModeSwitch('arrow')"-->
+    <!--          :class="state.isDrawingLineMode && state.lineType === 'arrow' && 'bg'"-->
+    <!--        >-->
+    <!--          &lt;!&ndash; <svg t="1673022047861" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="4206" width="20" height="20"><path d="M187.733333 1024h-170.666666c-10.24 0-17.066667-6.826667-17.066667-17.066667v-170.666666c0-10.24 6.826667-17.066667 17.066667-17.066667h170.666666c10.24 0 17.066667 6.826667 17.066667 17.066667v170.666666c0 10.24-6.826667 17.066667-17.066667 17.066667zM34.133333 989.866667h136.533334v-136.533334H34.133333v136.533334zM1006.933333 204.8h-170.666666c-10.24 0-17.066667-6.826667-17.066667-17.066667v-170.666666c0-10.24 6.826667-17.066667 17.066667-17.066667h170.666666c10.24 0 17.066667 6.826667 17.066667 17.066667v170.666666c0 10.24-6.826667 17.066667-17.066667 17.066667zM853.333333 170.666667h136.533334V34.133333h-136.533334v136.533334z" fill="" p-id="4207"></path><path d="M187.733333 853.333333c-3.413333 0-10.24 0-13.653333-3.413333-6.826667-6.826667-6.826667-17.066667 0-23.893333l648.533333-648.533334c6.826667-6.826667 17.066667-6.826667 23.893334 0s6.826667 17.066667 0 23.893334l-648.533334 648.533333c0 3.413333-6.826667 3.413333-10.24 3.413333z" fill="" p-id="4208"></path></svg> &ndash;&gt;-->
+    <!--          <draw2Icon width="20" height="20"></draw2Icon>-->
+    <!--        </span>-->
+    <!--      </a-tooltip>-->
+    <!--      <a-tooltip content="粗箭头" position="bottom">-->
+    <!--        <span-->
+    <!--          @click="drawingLineModeSwitch('thinTailArrow')"-->
+    <!--          :class="state.isDrawingLineMode && state.lineType === 'thinTailArrow' && 'bg'"-->
+    <!--        >-->
+    <!--          <draw3Icon width="20" height="20"></draw3Icon>-->
+    <!--        </span>-->
+    <!--      </a-tooltip>-->
+    <!--      <a-tooltip content="多边形" position="bottom">-->
+    <!--        <span-->
+    <!--          @click="drawPolygon"-->
+    <!--          :class="state.isDrawingLineMode && state.lineType === 'polygon' && 'bg'"-->
+    <!--        >-->
+    <!--          <draw4Icon width="20" height="20"></draw4Icon>-->
+    <!--        </span>-->
+    <!--      </a-tooltip>-->
+    <!-- 隐藏功能入口（路径文本） -->
+    <!-- <span
         @click="drawPathText"
         :class="state.isDrawingLineMode && state.lineType === 'pathText' && 'bg'"
       >
         <Icon type="logo-tumblr" :size="22" />
       </span> -->
-      <a-tooltip content="画笔" position="bottom">
-        <span
-          @click="freeDraw"
-          :class="state.isDrawingLineMode && state.lineType === 'freeDraw' && 'bg'"
-        >
-          <Icon type="md-brush" :size="22" />
-        </span>
-      </a-tooltip>
-    </div>
+    <!--      <a-tooltip content="画笔" position="bottom">-->
+    <!--        <span-->
+    <!--          @click="freeDraw"-->
+    <!--          :class="state.isDrawingLineMode && state.lineType === 'freeDraw' && 'bg'"-->
+    <!--        >-->
+    <!--          <Icon type="md-brush" :size="22" />-->
+    <!--        </span>-->
+    <!--      </a-tooltip>-->
+    <!--    </div>-->
     <!--    <Divider plain orientation="left">{{ $t('code_img') }}</Divider>-->
     <!--    <div class="tool-box">-->
     <!--      <span @click="canvasEditor.addQrCode">-->
@@ -117,8 +266,9 @@ import barCodeIcon from '@/assets/icon/tools/barCode.svg';
 
 // import useCalculate from '@/hooks/useCalculate';
 // const { getCanvasBound, isOutsideCanvas } = useCalculate();
-
+const { getImgStr, selectFiles } = Utils;
 import { useI18n } from 'vue-i18n';
+import { Utils } from '@kuaitu/core';
 
 const LINE_TYPE = {
   polygon: 'polygon',
@@ -135,11 +285,63 @@ const state = reactive({
   lineType: false,
 });
 
-const addText = (event) => {
+//插入图片
+const importImages = () => {
+  selectFiles({ accept: 'image/*', multiple: true }).then((fileList) => {
+    Array.from(fileList).forEach((item) => {
+      getImgStr(item).then((file) => {
+        insertImgFile(file);
+      });
+    });
+  });
+};
+
+// 插入图片文件
+function insertImgFile(file) {
+  if (!file) throw new Error('file is undefined');
+  const imgEl = document.createElement('img');
+  imgEl.src = file;
+  // 插入页面
+  document.body.appendChild(imgEl);
+  imgEl.onload = async () => {
+    const imgItem = await canvasEditor.createImgByElement(imgEl);
+    canvasEditor.addBaseType(imgItem, {
+      scale: true,
+    });
+    imgEl.remove();
+  };
+}
+
+//标题
+const addTextH1 = (event) => {
   cancelDraw();
   const text = new fabric.IText(t('everything_is_fine'), {
     ...defaultPosition,
     fontSize: 80,
+    fill: '#000000FF',
+  });
+
+  canvasEditor.addBaseType(text, { center: true, event });
+};
+
+//副标题
+const addTextH2 = (event) => {
+  cancelDraw();
+  const text = new fabric.IText(t('everything_is_fine'), {
+    ...defaultPosition,
+    fontSize: 60,
+    fill: '#000000FF',
+  });
+
+  canvasEditor.addBaseType(text, { center: true, event });
+};
+
+//正文
+const addText = (event) => {
+  cancelDraw();
+  const text = new fabric.IText(t('everything_is_fine'), {
+    ...defaultPosition,
+    fontSize: 32,
     fill: '#000000FF',
   });
 
@@ -345,5 +547,19 @@ onDeactivated(() => {
 }
 .img {
   width: 20px;
+}
+
+.button {
+  height: 90px;
+  width: 90px;
+  background: #f6f6f6;
+  border-radius: 10px;
+  color: #000000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  font-size: 12px;
+  margin-bottom: 12px;
 }
 </style>
