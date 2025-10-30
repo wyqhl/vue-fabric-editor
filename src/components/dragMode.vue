@@ -94,6 +94,7 @@ onMounted(() => {
 onBeforeUnmount(() => {
   canvasEditor.off('startDring');
   canvasEditor.off('endDring');
+  canvasEditor.off('historyUpdate');
 });
 </script>
 <style scoped lang="less">
