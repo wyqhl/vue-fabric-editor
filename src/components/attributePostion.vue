@@ -28,14 +28,23 @@
         </Col>
       </Row>
       <Form :label-width="40" class="form-wrap">
-        <FormItem :label="$t('attributes.angle')">
-          <Slider
-            v-model="baseAttr.angle"
-            :max="360"
-            @on-input="(value) => changeCommon('angle', value)"
-          ></Slider>
+        <FormItem :label="'旋转'">
+          <a-row>
+            <div style="display: flex; width: 100%; align-items: center; height: 32px">
+              <div style="flex: auto; padding-right: 10px; padding-top: 4px">
+                <a-slider
+                  v-model="baseAttr.angle"
+                  @change="(value) => changeCommon('angle', value)"
+                  :max="360"
+                />
+              </div>
+              <div style="flex: 0 0 50px; width: 50px; user-select: none; text-align: center">
+                {{ baseAttr.angle }}°
+              </div>
+            </div>
+          </a-row>
         </FormItem>
-        <FormItem :label="$t('attributes.opacity')">
+        <FormItem :label="'透明'">
           <Slider
             v-model="baseAttr.opacity"
             @on-input="(value) => changeCommon('opacity', value)"
@@ -113,6 +122,7 @@
 <script setup name="AttrBute">
 import useSelect from '@/hooks/select';
 import InputNumber from '@/components/inputNumber';
+import { Form, FormItem } from 'view-ui-plus';
 
 const update = getCurrentInstance();
 
@@ -309,5 +319,9 @@ onBeforeUnmount(() => {
 
 .unLocked {
   color: var(--color-neutral-4) !important;
+}
+
+:deep(.arco-slider-bar) {
+  height: 4px !important;
 }
 </style>
