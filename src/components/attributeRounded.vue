@@ -11,27 +11,49 @@
     <Divider plain orientation="left"><h4>圆角</h4></Divider>
     <!-- 通用属性 -->
     <div>
-      <Row :gutter="10">
-        <Col :span="18" flex="1">
-          <Form :label-width="40" class="form-wrap">
-            <FormItem :label="$t('attributes.rx_ry')">
-              <Slider
-                v-model="baseAttr.roundValue"
-                :max="300"
-                @on-input="(value) => changeCommon(value)"
-              ></Slider>
-            </FormItem>
-          </Form>
-        </Col>
-        <Col :span="6" flex="1">
-          <InputNumber
-            v-model="baseAttr.roundValue"
-            :min="0"
-            :max="300"
-            @on-change="(value) => changeCommon(value)"
-          ></InputNumber>
-        </Col>
-      </Row>
+      <!--      <Row :gutter="10">-->
+      <!--        <Col :span="18" flex="1">-->
+      <!--          <Form :label-width="40" class="form-wrap">-->
+      <!--            <FormItem :label="$t('attributes.rx_ry')">-->
+      <!--              <Slider-->
+      <!--                v-model="baseAttr.roundValue"-->
+      <!--                :max="300"-->
+      <!--                @on-input="(value) => changeCommon(value)"-->
+      <!--              ></Slider>-->
+      <!--            </FormItem>-->
+      <!--          </Form>-->
+      <!--        </Col>-->
+      <!--        <Col :span="6" flex="1">-->
+      <!--          <InputNumber-->
+      <!--            v-model="baseAttr.roundValue"-->
+      <!--            :min="0"-->
+      <!--            :max="300"-->
+      <!--            @on-change="(value) => changeCommon(value)"-->
+      <!--          ></InputNumber>-->
+      <!--        </Col>-->
+      <!--      </Row>-->
+      <a-row>
+        <a-space :size="[12, 12]" style="padding-left: 8px">
+          <span style="color: #515a6e; width: 30px">半径</span>
+          <div style="flex: auto; padding-right: 10px; padding-top: 4px">
+            <a-slider
+              v-model="baseAttr.roundValue"
+              style="width: 140px"
+              @change="(value) => changeCommon(value)"
+              :max="300"
+            />
+          </div>
+          <div>
+            <a-input-number
+              :style="{ width: '70px' }"
+              v-model="baseAttr.roundValue"
+              @change="(value) => changeCommon(value)"
+              :step="1"
+              :precision="0"
+            />
+          </div>
+        </a-space>
+      </a-row>
     </div>
     <!-- <Divider plain></Divider> -->
   </div>
@@ -122,5 +144,9 @@ onBeforeUnmount(() => {
       box-shadow: none !important;
     }
   }
+}
+
+:deep(.arco-slider-bar) {
+  height: 4px !important;
 }
 </style>
