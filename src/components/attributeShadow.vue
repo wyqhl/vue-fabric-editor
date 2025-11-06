@@ -12,16 +12,11 @@
     <Divider plain orientation="left"><h4>阴影</h4></Divider>
     <!-- 通用属性 -->
     <div>
-      <Row :gutter="10">
-        <Col flex="1">
-          <div class="ivu-col__box">
-            <span class="label">{{ $t('color') }}</span>
-            <div class="content">
-              <ColorPicker v-model="baseAttr.shadow.color" @on-change="changeCommon" alpha />
-            </div>
-          </div>
-        </Col>
-        <Col flex="1">
+      <a-row style="width: 100%; padding-bottom: 10px">
+        <TColorPicker v-model:value="baseAttr.shadow.color" @change="onColorChange"></TColorPicker>
+      </a-row>
+      <a-row :gutter="4">
+        <a-col :span="8">
           <InputNumber
             v-model="baseAttr.shadow.blur"
             :defaultValue="0"
@@ -29,28 +24,24 @@
             :append="$t('attributes.blur')"
             :min="0"
           ></InputNumber>
-        </Col>
-      </Row>
-      <div>
-        <Row :gutter="10">
-          <Col flex="1">
-            <InputNumber
-              v-model="baseAttr.shadow.offsetX"
-              :defaultValue="0"
-              @on-change="changeCommon"
-              :append="$t('attributes.offset_x')"
-            ></InputNumber>
-          </Col>
-          <Col flex="1">
-            <InputNumber
-              v-model="baseAttr.shadow.offsetY"
-              :defaultValue="0"
-              @on-change="changeCommon"
-              :append="$t('attributes.offset_y')"
-            ></InputNumber>
-          </Col>
-        </Row>
-      </div>
+        </a-col>
+        <a-col :span="8">
+          <InputNumber
+            v-model="baseAttr.shadow.offsetX"
+            :defaultValue="0"
+            @on-change="changeCommon"
+            :append="$t('attributes.offset_x')"
+          ></InputNumber>
+        </a-col>
+        <a-col :span="8">
+          <InputNumber
+            v-model="baseAttr.shadow.offsetY"
+            :defaultValue="0"
+            @on-change="changeCommon"
+            :append="$t('attributes.offset_y')"
+          ></InputNumber>
+        </a-col>
+      </a-row>
     </div>
     <!-- <Divider plain></Divider> -->
   </div>
@@ -59,6 +50,7 @@
 <script setup name="AttrBute">
 import useSelect from '@/hooks/select';
 import InputNumber from '@/components/inputNumber';
+import TColorPicker from '@/components/talkez/TColorPicker.vue';
 
 const update = getCurrentInstance();
 const { fabric, isOne, canvasEditor } = useSelect();
@@ -76,6 +68,15 @@ const getObjectAttr = (e) => {
   if (activeObject) {
     baseAttr.shadow = activeObject.get('shadow') || {};
   }
+};
+
+/**
+ * 修改颜色触发
+ * @param color
+ */
+const onColorChange = (color) => {
+  baseAttr.shadow.color = color;
+  changeCommon();
 };
 
 // 通用属性改变
