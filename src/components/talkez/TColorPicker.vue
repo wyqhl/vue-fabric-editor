@@ -55,8 +55,6 @@ const props = defineProps({
 
 const color = ref('');
 
-type formatType = 'hex' | 'rgb';
-
 let myFormat = ref('hex');
 
 /**
@@ -75,6 +73,16 @@ function onChange() {
   emit('update:value', color.value);
   emit('change', color.value);
 }
+
+/**
+ * 颜色变化时
+ */
+watch(
+  () => props.value,
+  () => {
+    refreshColor();
+  }
+);
 
 /**
  * 取色
@@ -98,9 +106,13 @@ const pickColor = async () => {
   }
 };
 
-onMounted(() => {
+const refreshColor = () => {
   color.value = props.value;
   myFormat.value = props.value && props.value.indexOf('#') > -1 ? 'hex' : 'rgb';
+};
+
+onMounted(() => {
+  refreshColor();
 });
 </script>
 
