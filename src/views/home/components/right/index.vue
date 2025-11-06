@@ -99,9 +99,9 @@ const switchAttrBar = () => {
         <!-- 二维码 -->
         <attributeQrCode></attributeQrCode>
         <!-- 图片滤镜 -->
-        <filters></filters>
+        <!--        <filters></filters>-->
         <!-- 图片描边 -->
-        <imgStroke />
+        <!--        <imgStroke />-->
         <!-- 颜色 -->
         <attributeColor></attributeColor>
         <!-- 字体属性 -->
