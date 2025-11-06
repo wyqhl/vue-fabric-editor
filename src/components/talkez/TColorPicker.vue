@@ -21,6 +21,7 @@
                 hideTrigger
                 showPreset
                 size="mini"
+                :format="myFormat"
                 @change="changeColor"
               />
             </template>
@@ -52,6 +53,10 @@ const props = defineProps({
 
 const color = ref('');
 
+type formatType = 'hex' | 'rgb';
+
+let myFormat = ref('hex');
+
 /**
  * 颜色修改时
  * @param currentColor 最新颜色
@@ -65,8 +70,8 @@ function changeColor(currentColor: string) {
  * 触发上级改变
  */
 function onChange() {
-  emit('update:value', color);
-  emit('change', color);
+  emit('update:value', color.value);
+  emit('change', color.value);
 }
 
 /**
@@ -93,6 +98,7 @@ const pickColor = async () => {
 
 onMounted(() => {
   color.value = props.value;
+  myFormat.value = props.value && props.value.indexOf('#') > -1 ? 'hex' : 'rgb';
 });
 </script>
 

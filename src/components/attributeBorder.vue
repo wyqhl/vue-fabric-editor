@@ -11,20 +11,15 @@
     <Divider plain orientation="left"><h4>边框</h4></Divider>
     <!-- 通用属性 -->
     <div>
-      <Row :gutter="12">
-        <Col flex="1">
-          <div class="ivu-col__box">
-            <span class="label">{{ $t('color') }}</span>
-            <div class="content">
-              <ColorPicker
-                v-model="baseAttr.stroke"
-                @on-change="(value) => changeCommon('stroke', value)"
-                alpha
-              />
-            </div>
-          </div>
-        </Col>
-        <Col flex="1">
+      <a-row style="width: 100%; padding-bottom: 10px">
+        <TColorPicker
+          v-model:value="baseAttr.stroke"
+          @change="(value) => changeCommon('stroke', value)"
+        ></TColorPicker>
+      </a-row>
+
+      <Row :gutter="4">
+        <Col :span="10">
           <InputNumber
             v-model="baseAttr.strokeWidth"
             @on-change="(value) => changeCommon('strokeWidth', value)"
@@ -32,10 +27,7 @@
             :min="0"
           ></InputNumber>
         </Col>
-      </Row>
-
-      <Row :gutter="12">
-        <Col flex="1">
+        <Col :span="14">
           <div class="ivu-col__box">
             <span class="label">{{ $t('attributes.stroke') }}</span>
             <div class="content">
@@ -59,6 +51,7 @@
 <script setup name="AttrBute">
 import useSelect from '@/hooks/select';
 import InputNumber from '@/components/inputNumber';
+import TColorPicker from '@/components/talkez/TColorPicker.vue';
 
 const update = getCurrentInstance();
 const { isOne, isGroup, canvasEditor } = useSelect();
