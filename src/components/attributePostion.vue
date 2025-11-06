@@ -201,7 +201,7 @@ const changeCommonWH = (key, value) => {
             const v = value / activeObject.width;
             activeObject.set('scaleX', v);
             //计算高度并设置
-            const height = value * (lockHeight.value / lockWidth.value);
+            const height = parseInt(value * (lockHeight.value / lockWidth.value));
             baseAttr.tHeight = height;
             const hv = height / activeObject.height;
             activeObject.set('scaleY', hv);
@@ -211,7 +211,7 @@ const changeCommonWH = (key, value) => {
             const v = value / activeObject.height;
             activeObject.set('scaleY', v);
             //计算宽度并设置
-            const width = value * (lockWidth.value / lockHeight.value);
+            const width = parseInt(value * (lockWidth.value / lockHeight.value));
             baseAttr.tWidth = width;
             const hw = width / activeObject.width;
             activeObject.set('scaleX', hw);
