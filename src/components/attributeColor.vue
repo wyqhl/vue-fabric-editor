@@ -11,17 +11,32 @@
     <Divider plain orientation="left"><h4>颜色</h4></Divider>
     <!-- 通用属性 -->
     <div class="bg-item">
-      <Tooltip placement="left" theme="light">
-        <div class="color-bar" :style="{ background: baseAttr.fill }"></div>
-        <template #content>
-          <color-picker
-            v-model:value="baseAttr.fill"
-            :modes="['渐变', '纯色']"
-            @change="colorChange"
-            @nativePick="dropColor"
-          ></color-picker>
-        </template>
-      </Tooltip>
+      <a-row style="width: 100%">
+        <div style="display: flex; width: 100%; align-items: center">
+          <div style="flex: auto">
+            <Tooltip placement="left" theme="light">
+              <div class="color-bar" :style="{ background: baseAttr.fill }"></div>
+              <template #content>
+                <color-picker
+                  v-model:value="baseAttr.fill"
+                  :modes="['渐变', '纯色']"
+                  @change="colorChange"
+                  @nativePick="dropColor"
+                ></color-picker>
+              </template>
+            </Tooltip>
+          </div>
+          <div style="flex: 0 0 40px; width: 40px; padding-left: 8px">
+            <a-tooltip content="从屏幕上吸取颜色" position="br">
+              <a-button @click="pickColor" size="mini" type="dashed">
+                <template #icon>
+                  <icon-palette />
+                </template>
+              </a-button>
+            </a-tooltip>
+          </div>
+        </div>
+      </a-row>
     </div>
     <!-- <Divider plain></Divider> -->
   </div>
@@ -31,7 +46,8 @@
 import useSelect from '@/hooks/select';
 import colorPicker from './color-picker';
 import { toRaw } from 'vue';
-
+import { Tooltip } from 'view-ui-plus';
+import { Message } from '@arco-design/web-vue';
 const update = getCurrentInstance();
 const { fabric, selectType, canvasEditor, isOne } = useSelect();
 const angleKey = 'gradientAngle';
@@ -39,6 +55,27 @@ const angleKey = 'gradientAngle';
 const baseAttr = reactive({
   fill: '#ffffffff',
 });
+
+/**
+ * 取色
+ */
+const pickColor = async () => {
+  try {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    // eslint-disable-next-line no-undef
+    const dropper = new EyeDropper();
+    let res = await dropper.open();
+    baseAttr.fill = res.sRGBHex;
+  } catch (e) {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    if (e.name && e.name === 'AbortError') {
+      return;
+    }
+    Message.error('当前浏览器不支持此功能');
+  }
+};
 
 // 属性获取
 const getObjectAttr = (e) => {
