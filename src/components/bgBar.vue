@@ -5,21 +5,17 @@
       <Divider plain orientation="left">
         <h4>背景颜色</h4>
       </Divider>
-      <Form :label-width="0">
-        <FormItem prop="name">
-          <a-color-picker
-            defaultValue="#FFF"
-            hide-trigger
-            showPreset
-            v-model="color"
-            @change="setThisColor"
-            style="width: 100%"
-          />
-          <!--          <a-button size="mini" long style="margin-top: 12px" @click="setBgColorTransparent">-->
-          <!--            设置画布为透明背景-->
-          <!--          </a-button>-->
-        </FormItem>
-      </Form>
+      <a-color-picker
+        defaultValue="#FFF"
+        hide-trigger
+        showPreset
+        v-model="color"
+        @change="setThisColor"
+        style="width: 100%"
+      />
+      <!--          <a-button size="mini" long style="margin-top: 12px" @click="setBgColorTransparent">-->
+      <!--            设置画布为透明背景-->
+      <!--          </a-button>-->
       <!-- <Divider plain></Divider> -->
     </div>
     <!--    <div class="attr-item-box">-->

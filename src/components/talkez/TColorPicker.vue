@@ -16,14 +16,16 @@
               ></div>
             </div>
             <template #content>
-              <a-color-picker
-                :model-value="color"
-                hideTrigger
-                showPreset
-                size="mini"
-                :format="myFormat"
-                @change="changeColor"
-              />
+              <div style="padding: 10px 0">
+                <a-color-picker
+                  :model-value="color"
+                  hideTrigger
+                  showPreset
+                  size="mini"
+                  :format="myFormat"
+                  @change="changeColor"
+                />
+              </div>
             </template>
           </a-trigger>
         </div>
