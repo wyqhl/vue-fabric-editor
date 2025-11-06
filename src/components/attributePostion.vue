@@ -45,10 +45,20 @@
           </a-row>
         </FormItem>
         <FormItem :label="'透明'">
-          <Slider
-            v-model="baseAttr.opacity"
-            @on-input="(value) => changeCommon('opacity', value)"
-          ></Slider>
+          <a-row>
+            <div style="display: flex; width: 100%; align-items: center; height: 32px">
+              <div style="flex: auto; padding-right: 10px; padding-top: 4px">
+                <a-slider
+                  v-model="baseAttr.opacity"
+                  @change="(value) => changeCommon('opacity', value)"
+                  :max="100"
+                />
+              </div>
+              <div style="flex: 0 0 50px; width: 50px; user-select: none; text-align: center">
+                {{ baseAttr.opacity }}%
+              </div>
+            </div>
+          </a-row>
         </FormItem>
       </Form>
     </div>
