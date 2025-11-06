@@ -276,7 +276,7 @@ const LINE_TYPE = {
   pathText: 'pathText',
 };
 // 默认属性
-const defaultPosition = { shadow: '', fontFamily: 'arial' };
+const defaultPosition = { shadow: '', fontFamily: 'arial', paintFirst: 'stroke' };
 
 const { t } = useI18n();
 const { fabric, canvasEditor } = useSelect();
@@ -315,7 +315,7 @@ function insertImgFile(file) {
 //标题
 const addTextH1 = (event) => {
   cancelDraw();
-  const text = new fabric.IText(t('everything_is_fine'), {
+  const text = new fabric.Textbox('双击编辑标题', {
     ...defaultPosition,
     fontSize: 80,
     fill: '#000000FF',
@@ -327,7 +327,7 @@ const addTextH1 = (event) => {
 //副标题
 const addTextH2 = (event) => {
   cancelDraw();
-  const text = new fabric.IText(t('everything_is_fine'), {
+  const text = new fabric.Textbox('双击编辑副标题', {
     ...defaultPosition,
     fontSize: 60,
     fill: '#000000FF',
@@ -339,9 +339,9 @@ const addTextH2 = (event) => {
 //正文
 const addText = (event) => {
   cancelDraw();
-  const text = new fabric.IText(t('everything_is_fine'), {
+  const text = new fabric.Textbox('双击编辑正文', {
     ...defaultPosition,
-    fontSize: 32,
+    fontSize: 30,
     fill: '#000000FF',
   });
 
