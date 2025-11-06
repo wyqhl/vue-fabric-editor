@@ -49,24 +49,60 @@
       <Divider plain orientation="left"><h4>尺寸信息</h4></Divider>
       <!-- 通用属性 -->
       <div v-show="isMatchType">
-        <Row :gutter="10">
-          <Col flex="1">
+        <a-row>
+          <a-col :span="10">
             <InputNumber
               :precision="0"
               v-model="baseAttr.tWidth"
               @on-change="(value) => changeCommonWH('width', value)"
               :append="'宽度'"
             ></InputNumber>
-          </Col>
-          <Col flex="1">
+          </a-col>
+          <a-col :span="4">
+            <a-tooltip content="锁定宽高比例">
+              <div
+                style="
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  width: 100%;
+                  height: 30px;
+                  cursor: pointer;
+                "
+                :class="lockWH ? 'locked' : 'unLocked'"
+                @click="changeLock"
+              >
+                <icon-link :rotate="45" color="#fff" />
+              </div>
+            </a-tooltip>
+          </a-col>
+          <a-col :span="10">
             <InputNumber
               :precision="0"
               v-model="baseAttr.tHeight"
               @on-change="(value) => changeCommonWH('height', value)"
               :append="'高度'"
             ></InputNumber>
-          </Col>
-        </Row>
+          </a-col>
+        </a-row>
+        <!--        <Row :gutter="10">-->
+        <!--          <Col flex="1">-->
+        <!--            <InputNumber-->
+        <!--              :precision="0"-->
+        <!--              v-model="baseAttr.tWidth"-->
+        <!--              @on-change="(value) => changeCommonWH('width', value)"-->
+        <!--              :append="'宽度'"-->
+        <!--            ></InputNumber>-->
+        <!--          </Col>-->
+        <!--          <Col flex="1">-->
+        <!--            <InputNumber-->
+        <!--              :precision="0"-->
+        <!--              v-model="baseAttr.tHeight"-->
+        <!--              @on-change="(value) => changeCommonWH('height', value)"-->
+        <!--              :append="'高度'"-->
+        <!--            ></InputNumber>-->
+        <!--          </Col>-->
+        <!--        </Row>-->
       </div>
     </div>
 
@@ -100,6 +136,8 @@ const { isMatchType, canvasEditor, isOne } = useSelect(baseType);
 const canSetSizeType = ['rect', 'image'];
 const { isMatchType: isCanSetSizeTypeMatchType, state } = useSelect(canSetSizeType);
 
+const lockWH = ref(false);
+
 // 属性值
 const baseAttr = reactive({
   opacity: 0,
@@ -117,24 +155,71 @@ const baseAttr = reactive({
   id: '',
 });
 
+//锁定时的宽高
+const lockWidth = ref(0);
+const lockHeight = ref(0);
+
+//修改锁定状态
+const changeLock = () => {
+  lockWH.value = !lockWH.value;
+  if (lockWH.value) {
+    lockWidth.value = baseAttr.tWidth;
+    lockHeight.value = baseAttr.tHeight;
+  } else {
+    lockWidth.value = 0;
+    lockHeight.value = 0;
+  }
+};
+
 // 通用属性改变
 const changeCommonWH = (key, value) => {
   const activeObject = canvasEditor.canvas.getActiveObjects()[0];
   if (activeObject) {
-    // 宽高设置
-    if (key === 'width' || key === 'height') {
-      if (activeObject) {
-        if (key === 'width') {
-          const v = value / activeObject.width;
-          activeObject.set('scaleX', v);
+    //锁定宽高处理
+    if (!lockWH.value) {
+      // 宽高设置
+      if (key === 'width' || key === 'height') {
+        if (activeObject) {
+          if (key === 'width') {
+            const v = value / activeObject.width;
+            activeObject.set('scaleX', v);
+          }
+          if (key === 'height') {
+            const v = value / activeObject.height;
+            activeObject.set('scaleY', v);
+          }
         }
-        if (key === 'height') {
-          const v = value / activeObject.height;
-          activeObject.set('scaleY', v);
-        }
+        canvasEditor.canvas.renderAll();
+        return;
       }
-      canvasEditor.canvas.renderAll();
-      return;
+    } else {
+      // 锁定宽高设置
+      if (key === 'width' || key === 'height') {
+        if (activeObject) {
+          if (key === 'width') {
+            //设置宽度
+            const v = value / activeObject.width;
+            activeObject.set('scaleX', v);
+            //计算高度并设置
+            const height = value * (lockHeight.value / lockWidth.value);
+            baseAttr.tHeight = height;
+            const hv = height / activeObject.height;
+            activeObject.set('scaleY', hv);
+          }
+          if (key === 'height') {
+            //设置高度
+            const v = value / activeObject.height;
+            activeObject.set('scaleY', v);
+            //计算宽度并设置
+            const width = value * (lockWidth.value / lockHeight.value);
+            baseAttr.tWidth = width;
+            const hw = width / activeObject.width;
+            activeObject.set('scaleX', hw);
+          }
+        }
+        canvasEditor.canvas.renderAll();
+        return;
+      }
     }
     activeObject && activeObject.set(key, value);
     canvasEditor.canvas.renderAll();
@@ -216,5 +301,13 @@ onBeforeUnmount(() => {
 
 .ivu-row {
   margin-bottom: 10px;
+}
+
+.locked {
+  color: rgb(var(--arcoblue-6)) !important;
+}
+
+.unLocked {
+  color: var(--color-neutral-4) !important;
 }
 </style>
